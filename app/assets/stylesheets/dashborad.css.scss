@@ -1,0 +1,28 @@
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+  background-color: #f5f5f5;
+  padding: 10px;
+}
+
+
+/* Sidebar navigation */
+
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #838b8b;
+}
+
+.container-fluid .row {
+  margin: 10px 0;
+}

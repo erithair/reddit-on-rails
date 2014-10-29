@@ -1,0 +1,46 @@
+<% provide(:title, @user.username) %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li><%= link_to 'placeholder', '#' %></li>
+        <li><%= link_to 'placeholder', '#' %></li>
+        <li><%= link_to 'placeholder', '#' %></li>
+        <li><%= link_to 'placeholder', '#' %></li>
+        <li><%= link_to 'placeholder', '#' %></li>
+      </ul>
+    </div>
+    <div class="col-sm-9 col-md-10 main">
+      <h1 class="page-header">Info</h1>
+      <div class="container">
+        <%= @user.username %></br>
+        <%= @user.email %>
+      </div>
+
+      <h2 class="sub-header">Section title</h2>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Header</th>
+              <th>Header</th>
+              <th>Header</th>
+              <th>Header</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1,015</td>
+              <td>sodales</td>
+              <td>ligula</td>
+              <td>in</td>
+              <td>libero</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

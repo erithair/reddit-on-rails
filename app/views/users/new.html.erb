@@ -1,0 +1,11 @@
+<% provide(:title, 'Sign up') %>
+
+<%= form_for @user, html: { class: 'form-signin' } do |f| %>
+  <%= render 'shared/errors', object: f.object %>
+
+  <h2 class="form-signin-heading">Sign up</h2>
+
+  <%= render 'form', f: f %>
+
+  <%= f.submit 'Create', class: 'btn btn-primary btn-block' %>
+<% end %>
