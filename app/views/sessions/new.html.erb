@@ -1,0 +1,11 @@
+<% provide(:title, 'Log in') %>
+
+<%= form_for :session, html: { class: 'form-signin' } do |f| %>
+  <h2 class="form-signin-heading">Log in</h2>
+
+  <%= f.text_field :email, class: 'form-control', placeholder: "Email address" %>
+
+  <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
+
+  <%= f.submit 'Log in', class: 'btn btn-primary btn-block' %>
+<% end %>
