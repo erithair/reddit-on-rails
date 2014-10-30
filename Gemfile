@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.5'
@@ -42,6 +42,11 @@ group :test do
   gem "database_cleaner", "~> 1.3.0"
   gem "launchy", "~> 2.4.2"
   gem 'shoulda-matchers', '~> 2.6.2'
+end
+
+group :production do
+  gem 'rails_12factor', '0.0.3'
+  gem 'unicorn', '4.8.3'
 end
 
 
