@@ -14,9 +14,25 @@ RSpec.describe SessionsController, :type => :controller do
 
   describe "POST #create" do
     context "with valid user info" do
-      it "log in successfully" do
-        post :create, session: { email: @user.email, password: @user.password }
+      it "log in, not remember me" do
+        post :create, session: { email: @user.email,
+                                 password: @user.password,
+                                 remember_me: '0'}
+        @user.reload
+        expect(@user.remember_digest).to be_nil
         expect(session[:user_id]).to eq @user.id
+        expect(cookies['remember_token']).to be_nil
+        expect(response).to redirect_to user_path(@user)
+      end
+
+      it "log in, remember me" do
+        post :create, session: { email: @user.email,
+                                 password: @user.password,
+                                 remember_me: '1'}
+        @user.reload
+        expect(@user.remember_digest).to_not be_nil
+        expect(session[:user_id]).to eq @user.id
+        expect(cookies['remember_token']).to_not be_nil
         expect(response).to redirect_to user_path(@user)
       end
     end
@@ -35,6 +51,8 @@ RSpec.describe SessionsController, :type => :controller do
       set_user_session(@user)
 
       delete :destroy
+      @user.reload
+      expect(@user.remember_digest).to be_nil
       expect(session[:user_id]).to be_nil
       expect(response).to redirect_to root_path
     end

@@ -27,6 +27,11 @@ RSpec.describe User, :type => :model do
       expect(build(:user, email: '')).to_not be_valid
     end
 
+    it "transfer to downcase automatically" do
+      user = create(:user, email: 'UPCASE@EMAIL.com')
+      expect(user.email).to eq 'upcase@email.com'
+    end
+
     it "refuse when format is invalid" do
       invalid_addresses = [
         # normal invalid email addresses
@@ -88,5 +93,8 @@ RSpec.describe User, :type => :model do
       expect(build(:user, password: 'secret', password_confirmation: 'foobar'))
     end
 
+    it "#authenticated? should return false for a user with nil digest" do
+      expect(create(:user).authenticated?('')).to be_falsy
+    end
   end
 end

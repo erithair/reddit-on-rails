@@ -6,4 +6,5 @@ module LoginMacros
   def current_user_id
     session[:user_id]
   end
+
 end

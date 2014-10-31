@@ -7,5 +7,10 @@
 
   <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
 
+  <%= f.label :remember_me, class: 'checkbox' do %>
+    <%= f.check_box :remember_me %>
+    <span>Remember me</span>
+  <% end %>
+
   <%= f.submit 'Log in', class: 'btn btn-primary btn-block' %>
 <% end %>
