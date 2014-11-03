@@ -2,33 +2,43 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-ul.link-list {
-  list-style: none;
 
-  .row {
-    height: 80px;
-    min-width: 1000px;
-    margin-bottom: 10px;
 
-    .image {
-      float: left;
-    }
+#links-container {
+  position: relative;
+  padding: 0;
+  margin: 10px auto;
+  min-width: 640px;
 
-    .content {
-      display: inline-block;
-      padding-left: 0;
-      margin-left: 10px;
-      height: 80px;
-      overflow: hidden;
-      ul {
-        margin: 0;
-      }
-    }
-  }
-
-  ul {
-    display: inline-block;
+  ul.link-list {
     list-style: none;
     padding: 0;
+
+    .row {
+      height: 80px;
+      margin: 0 auto 10px auto;
+      background-color: #f8f8f8;
+
+      .image {
+        float: left;
+        width: 80px;
+        height: 80px;
+        overflow: hidden;
+      }
+
+      .content {
+        display: inline-block;
+        padding-left: 0;
+        margin-left: 10px;
+        height: 80px;
+        overflow: hidden;
+        ul {
+          margin: 0;
+          display: inline-block;
+          list-style: none;
+          padding: 0;
+        }
+      }
+    }
   }
 }

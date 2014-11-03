@@ -47,7 +47,6 @@ img_urls = ["http://b.thumbs.redditmedia.com/A_h0y5Lg1cowmvUKlrXPm3BBoR46JRcsAxk
  "http://b.thumbs.redditmedia.com/k0OApEtgkVcoiPcK7r4ZwROCrf0VmIxmNvZaeuXIxhM.jpg",
  "http://b.thumbs.redditmedia.com/3B1I9bjGzxMAfPr0Vz_gqemY_-gQj1rAe9uXkIYYm_g.jpg",
  "http://b.thumbs.redditmedia.com/7g7QGuALFGTRno9XFTPcxO3I8K7WlQSbZKiwaJ_3lSk.jpg",
- "http://pixel.redditmedia.com/pixel/of_defenestration.png?hash=adblock0e31bc319d5b5882b0cddf147f4ce1da5ac9c731&id=adblock&random=3524888968095183.5",
  "http://www.redditstatic.com/kill.png"]
 
 # create some links
