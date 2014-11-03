@@ -1,0 +1,34 @@
+// Place all the styles related to the Links controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+ul.link-list {
+  list-style: none;
+
+  .row {
+    height: 80px;
+    min-width: 1000px;
+    margin-bottom: 10px;
+
+    .image {
+      float: left;
+    }
+
+    .content {
+      display: inline-block;
+      padding-left: 0;
+      margin-left: 10px;
+      height: 80px;
+      overflow: hidden;
+      ul {
+        margin: 0;
+      }
+    }
+  }
+
+  ul {
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+  }
+}

@@ -1,0 +1,18 @@
+<ul class="link-list">
+  <% @links.each do |link| %>
+    <li>
+      <div class="row">
+        <div class="image">
+          <%= link_to image_tag(link.url, width: '80', height: '80', alt: "image for link"), link.url %>
+        </div>
+        <div class="content">
+          <ul>
+            <li><%= link_to link.title, link.url %></li>
+            <li>Submitted <%= timeago_tag link.created_at, nojs: true, limit: 10.days.ago %> by <%= link_to link.user.username, link.user %></li>
+            <li>row 3</li>
+          </ul>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>

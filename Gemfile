@@ -28,6 +28,8 @@ gem 'spring',        group: :development
 
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'email_validator', '~> 1.4.0'
+gem "faker", '~> 1.4.3'
+gem 'rails-timeago', '~> 2.0'
 
 group :development, :test do
   gem "rspec-rails", "~> 3.1.0"
@@ -37,7 +39,6 @@ group :development, :test do
 end
 
 group :test do
-  gem "faker", "~> 1.4.3"
   gem "capybara", "~> 2.4.3"
   gem "database_cleaner", "~> 1.3.0"
   gem "launchy", "~> 2.4.2"

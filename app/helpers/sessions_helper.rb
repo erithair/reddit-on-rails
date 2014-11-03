@@ -34,4 +34,11 @@ module SessionsHelper
     cookies.delete(:user_id)
     cookies.delete(:remember_token)
   end
+
+  def requires_login
+    unless logged_in?
+      flash[:warning] = 'You need to log in'
+      redirect_to login_url and return
+    end
+  end
 end

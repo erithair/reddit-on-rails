@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   post    'login',  to:  'sessions#create'
   delete  'logout', to:  'sessions#destroy'
 
-  get 'signup', to: 'users#new', as: 'signup'
+  get 'signup', to: 'users#new'
 
-  root 'pages#home'
+  root 'links#index'
 
   resources :users, except: :index
+  resources :links
 end

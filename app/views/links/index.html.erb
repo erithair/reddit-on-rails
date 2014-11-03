@@ -1,0 +1,21 @@
+<% provide(:title, 'Home') %>
+
+<div class="container">
+  <!-- Static navbar -->
+  <nav class="navbar navbar-default navbar-content" role="navigation">
+    <div class="container-fluid">
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+  </nav>
+
+  <!-- Main component for a primary marketing message or call to action -->
+  <div id="links-container" class="container">
+    <%= render 'link_list' %>
+  </div>
+</div> <!-- /container -->
