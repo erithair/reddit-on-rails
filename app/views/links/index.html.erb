@@ -1,6 +1,6 @@
 <% provide(:title, 'Home') %>
 
-<div class="container">
+<div class="container-fluid">
   <!-- Static navbar -->
   <nav class="navbar navbar-default navbar-content" role="navigation">
     <div class="container-fluid">
@@ -14,8 +14,12 @@
     </div><!--/.container-fluid -->
   </nav>
 
-  <!-- Main component for a primary marketing message or call to action -->
-  <div id="links-container">
-    <%= render 'link_list' %>
+  <div class="row">
+    <div id="links-container" class="col-md-6">
+      <%= render 'link_list' %>
+    </div>
+    <div class="comment-container col-md-6">
+      
+    </div>
   </div>
 </div> <!-- /container -->

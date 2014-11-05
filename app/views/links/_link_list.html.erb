@@ -9,7 +9,7 @@
           <ul>
             <li><%= link_to link.title, link.url %></li>
             <li>Submitted <%= timeago_tag link.created_at, nojs: true, limit: 10.days.ago %> by <%= link_to link.user.username, link.user %></li>
-            <li>row 3</li>
+            <li><%= link_to 'Comments', '#' %></li>
           </ul>
         </div>
       </div>
