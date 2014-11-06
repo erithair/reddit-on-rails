@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row link-info">
+    <div class="image">
+      <%= link_to image_tag(@link.url, width: '80', alt: "image for link"), @link.url %>
+    </div>
+
+    <div class="content">
+      <ul>
+        <li><%= link_to @link.title, @link.url %></li>
+        <li>Submitted <%= timeago_tag @link.created_at, nojs: true, limit: 10.days.ago %> by <%= link_to @link.user.username, @link.user %></li>
+      </ul>
+    </div>
+  </div>
+
+  <ul class="comment-list">
+    <% @comments.each do |comment| %>
+      <li>
+        <div class="comment-container">
+          <h3>content to add...</h3>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+
+</div>

@@ -21,7 +21,7 @@ class LinksController < ApplicationController
   end
 
   def index
-    @links = Link.includes(:user).paginate(page: params[:page])
+    @links = Link.includes(:user, :comments).paginate(page: params[:page])
   end
 
   def edit

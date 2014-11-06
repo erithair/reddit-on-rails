@@ -16,15 +16,19 @@
 
   <div class="row">
     <div id="links-container" class="col-md-6">
-      <%= render 'link_list' %>
-      <%= will_paginate @posts %>
+      <%= render 'links/link_list' %>
+      <%= will_paginate @links %>
     </div>
+
     <div class="content-container col-md-6">
       <% if logged_in? %>
         <div class="container">
           <%= render 'link_form' %>
+
+          <%= render 'comments/comment_list' if @comments %>
         </div>
       <% end %>
     </div>
+
   </div>
 </div> <!-- /container -->

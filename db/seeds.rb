@@ -21,10 +21,12 @@ User.create!(username: 'admin',
     password_confirmation: 'secret')
 end
 
-# select random user
-user_count = 10
-users = User.count > user_count ? User.take(user_count) : User.all
-random_user = -> { users[rand(user_count)] }
+# select random subject: User, Link...
+def random(subject)
+  count = 10
+  array = subject.count > count ? subject.take(count) : subject.all
+  array[rand(count)]
+end
 
 
 img_urls = ["http://b.thumbs.redditmedia.com/A_h0y5Lg1cowmvUKlrXPm3BBoR46JRcsAxk5w3ssHgI.jpg",
@@ -51,10 +53,21 @@ img_urls = ["http://b.thumbs.redditmedia.com/A_h0y5Lg1cowmvUKlrXPm3BBoR46JRcsAxk
 
 # create some links
 50.times do
-  user = random_user.call
-  time = rand(30).hours.ago
+  user = random(User)
+
   user.links.create!(
     url: img_urls.sample,
     title: Faker::Lorem.sentence,
     created_at: time)
+end
+
+
+# create some comments
+100.times  do
+  user = random(User)
+  link = random(Link)
+  user.comments.create!(
+    content: Faker::Lorem.paragraph(2, true, 4),
+    link_id: link.id,
+    created_at: rand(link.created_at..Time.zone.now))
 end

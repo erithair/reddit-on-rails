@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   root 'links#index'
 
   resources :users, except: :index
-  resources :links
+  resources :links do
+    resources :comments, only: [:new, :create, :index, :destroy]
+  end
 end

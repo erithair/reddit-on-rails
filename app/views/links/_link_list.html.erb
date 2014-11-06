@@ -13,7 +13,7 @@
               <% end %>
             </li>
             <li>Submitted <%= timeago_tag link.created_at, nojs: true, limit: 10.days.ago %> by <%= link_to link.user.username, link.user %></li>
-            <li><%= link_to 'Comments', '#' %></li>
+            <li><%= link_to pluralize(link.comments.count, 'Comment'), link_comments_path(link) %></li>
           </ul>
         </div>
       </div>
