@@ -7,7 +7,11 @@
         </div>
         <div class="content">
           <ul>
-            <li><%= link_to link.title, link.url %></li>
+            <li><%= link_to link.title, link.url %>
+              <% if link.user == current_user %> -
+                <%= link_to ' (Delete)', link_path(link), method: :delete, class: 'delete-link' %>
+              <% end %>
+            </li>
             <li>Submitted <%= timeago_tag link.created_at, nojs: true, limit: 10.days.ago %> by <%= link_to link.user.username, link.user %></li>
             <li><%= link_to 'Comments', '#' %></li>
           </ul>

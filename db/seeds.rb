@@ -52,8 +52,9 @@ img_urls = ["http://b.thumbs.redditmedia.com/A_h0y5Lg1cowmvUKlrXPm3BBoR46JRcsAxk
 # create some links
 50.times do
   user = random_user.call
-
+  time = rand(30).hours.ago
   user.links.create!(
     url: img_urls.sample,
-    title: Faker::Lorem.sentence)
+    title: Faker::Lorem.sentence,
+    created_at: time)
 end

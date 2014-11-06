@@ -1,0 +1,11 @@
+<%= form_for :link, url: links_path, html: { class: 'link-form' } do |f| %>
+  <%= render 'shared/errors', object: f.object %>
+
+  <h2>New Link</h2>
+
+  <%= f.text_field :url, class: 'form-control', placeholder: "image url" %>
+
+  <%= f.text_field :title, class: 'form-control', placeholder: 'title' %>
+
+  <%= f.submit 'Submit' %>
+<% end %>

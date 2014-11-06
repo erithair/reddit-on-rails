@@ -19,8 +19,12 @@
       <%= render 'link_list' %>
       <%= will_paginate @posts %>
     </div>
-    <div class="comment-container col-md-6">
-      
+    <div class="content-container col-md-6">
+      <% if logged_in? %>
+        <div class="container">
+          <%= render 'link_form' %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div> <!-- /container -->

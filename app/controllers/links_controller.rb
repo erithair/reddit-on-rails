@@ -13,7 +13,7 @@ class LinksController < ApplicationController
       flash[:success] = 'create a new link'
       redirect_to links_url
     else
-      render :new
+      render :index
     end
   end
 

@@ -2,9 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.comment-container {
+.content-container {
   width: 50%;
+
+  .container {
+    width: 100%;
+
+    h2 {
+      margin-top: 0;
+    }
   }
+}
 
 #links-container {
   width: 50%;
@@ -38,6 +46,10 @@
           display: inline-block;
           list-style: none;
           padding: 0;
+
+          .delete-link {
+            color: red;
+          }
         }
       }
     }

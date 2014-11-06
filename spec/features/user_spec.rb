@@ -16,14 +16,10 @@ feature 'User' do
     expect(page).to have_content 'Sign up success'
   end
 
-  context "with valid info" do
-    scenario "log in/out" do
+  context "log in failed" do
+    scenario "with valid info" do
       user = create(:user)
-      visit root_path
-      click_link 'Log in'
-      fill_in 'session[email]', with: user.email
-      fill_in 'session[password]', with: user.password
-      click_button 'Log in'
+      login_as(user)
       expect(page).to have_content 'Log in success'
       expect(page).to have_content user.username
 
@@ -32,19 +28,30 @@ feature 'User' do
       expect(page).to have_content 'Log out success'
       expect(page).to_not have_content user.username
     end
-  end
 
-  context "with invalid info" do
-    scenario "log in failed" do
+    scenario "with invalid info" do
       user = create(:user)
-      visit root_path
-      click_link 'Log in'
-      fill_in 'session[email]', with: user.email
-      fill_in 'session[password]', with: 'invalid'
-      click_button 'Log in'
+      login_as(user, password: 'invalid')
       expect(page).to have_content 'Invalid info'
       expect(page).to_not have_content user.username
     end
+  end
+
+  scenario 'submit a new link and then delete it' do
+    user = create(:user)
+    login_as(user)
+
+    visit root_path
+    fill_in 'link[url]', with: 'http://foobar.com/foo.jpg'
+    fill_in 'link[title]', with: 'Foo Bar'
+    click_button 'Submit'
+    expect(page).to have_content 'create a new link'
+    expect(page).to have_content 'Foo Bar'
+
+    # delete it
+    click_link 'Delete'
+    expect(page).to_not have_content 'create a new link'
+    expect(page).to_not have_content 'Foo Bar'
   end
 
 end

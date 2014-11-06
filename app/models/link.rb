@@ -1,4 +1,6 @@
 class Link < ActiveRecord::Base
+  default_scope { order(created_at: :desc) }
+
   # show 20 links every page
   self.per_page = 20
 
