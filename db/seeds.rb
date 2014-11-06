@@ -50,7 +50,7 @@ img_urls = ["http://b.thumbs.redditmedia.com/A_h0y5Lg1cowmvUKlrXPm3BBoR46JRcsAxk
  "http://www.redditstatic.com/kill.png"]
 
 # create some links
-30.times do
+50.times do
   user = random_user.call
 
   user.links.create!(

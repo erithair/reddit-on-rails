@@ -1,4 +1,7 @@
 class Link < ActiveRecord::Base
+  # show 20 links every page
+  self.per_page = 20
+
   validates :url, presence: true, format: { with: URI::regexp(%w[http https]) }
   validates :title, presence: true, length: { maximum: 200 }
   validates :user, presence: true
