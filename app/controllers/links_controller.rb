@@ -31,7 +31,7 @@ class LinksController < ApplicationController
   def update
     if @link.update(link_params)
       flash[:success] = 'update the link'
-      redirect_to link_url(@link)
+      redirect_to links_url
     else
       render :edit
     end

@@ -68,7 +68,7 @@ RSpec.describe LinksController, :type => :controller do
             user: @link.user)
           @link.reload
           expect(@link.title).to eq 'New Title'
-          expect(response).to redirect_to link_path(@link)
+          expect(response).to redirect_to links_path
         end
       end
 

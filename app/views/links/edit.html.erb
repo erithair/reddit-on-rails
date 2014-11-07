@@ -1,5 +1,12 @@
 <% provide(:title, 'Edit link') %>
+
 <div class="container">
-  <h3>Edit link</h3>
-  <%= render 'link_form' %>
+  <%= form_for @link, url: link_path(@link), method: :patch, html: { class: 'link-form' } do |f| %>
+
+    <h3>Edit link</h3>
+    <%= render 'form_fields', f: f %>
+
+    <%= f.submit 'Update', class: 'btn btn-primary' %>
+
+  <% end %>
 </div>

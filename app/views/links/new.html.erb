@@ -1,5 +1,12 @@
 <% provide(:title, 'New link') %>
+
 <div class="container">
-  <h3>New link</h3>
-  <%= render 'link_form' %>
+  <%= form_for @link, url: links_path, html: { class: 'link-form' } do |f| %>
+
+    <h3>New link</h3>
+    <%= render 'form_fields', f: f %>
+
+    <%= f.submit 'Submit', class: 'btn btn-primary' %>
+
+  <% end %>
 </div>
