@@ -21,13 +21,13 @@
     </div>
 
     <div class="content-container col-md-6">
-      <% if logged_in? %>
-        <div class="container">
+      <div class="container">
+        <% if @link %>
           <%= render 'link_form' %>
+        <% end %>
 
-          <%= render 'comments/comment_list' if @comments %>
-        </div>
-      <% end %>
+        <%= render 'comments/comment_list' if @comments %>
+      </div>
     </div>
 
   </div>

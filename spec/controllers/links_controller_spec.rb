@@ -4,6 +4,7 @@ RSpec.describe LinksController, :type => :controller do
   shared_examples_for 'public access' do
     describe "GET #show" do
       it "assigns a Link to @link" do
+        pending "not implemented"
         link = create(:link)
         get :show, id: link
         expect(assigns(:link)).to eq link
