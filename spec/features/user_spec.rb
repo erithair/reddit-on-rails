@@ -16,7 +16,7 @@ feature 'User' do
     expect(page).to have_content 'Sign up success'
   end
 
-  context "log in failed" do
+  context "log in" do
     scenario "with valid info" do
       user = create(:user)
       login_as(user)
