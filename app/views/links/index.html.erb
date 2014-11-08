@@ -26,14 +26,15 @@
           <%= form_for @link, url: links_path, html: { class: 'link-form' } do |f| %>
 
             <h3>New link</h3>
-            <%= render 'form_fields', f: f %>
+            <%= render 'links/form_fields', f: f %>
 
             <%= f.submit 'Submit', class: 'btn btn-primary' %>
 
           <% end %>
         <% end %>
 
-        <%= render 'comments/comment_list' if @comments %>
+        <%= render 'links/link_info', link: @link if @link %>
+        <%= render 'comments/comment_list', comments: @comments if @comments %>
       </div>
     </div>
 

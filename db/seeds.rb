@@ -58,7 +58,7 @@ img_urls = ["http://b.thumbs.redditmedia.com/A_h0y5Lg1cowmvUKlrXPm3BBoR46JRcsAxk
   user.links.create!(
     url: img_urls.sample,
     title: Faker::Lorem.sentence,
-    created_at: time)
+    created_at: rand(30).hours.ago)
 end
 
 
