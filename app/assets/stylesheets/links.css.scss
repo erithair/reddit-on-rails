@@ -18,40 +18,40 @@
   width: 50%;
   position: relative;
   padding: 0;
-
+}
   ul.link-list {
     list-style: none;
     padding: 0;
+  }
 
-    .row {
+  .link-row {
+    height: 80px;
+    margin: 0 auto 10px auto;
+    background-color: #f8f8f8;
+
+    .image {
+      float: left;
+      width: 80px;
       height: 80px;
-      margin: 0 auto 10px auto;
-      background-color: #f8f8f8;
+      overflow: hidden;
+    }
 
-      .image {
-        float: left;
-        width: 80px;
-        height: 80px;
-        overflow: hidden;
-      }
-
-      .content {
+    .content {
+      display: inline-block;
+      padding-left: 0;
+      margin-left: 10px;
+      height: 80px;
+      overflow: hidden;
+      ul {
+        margin: 0;
         display: inline-block;
-        padding-left: 0;
-        margin-left: 10px;
-        height: 80px;
-        overflow: hidden;
-        ul {
-          margin: 0;
-          display: inline-block;
-          list-style: none;
-          padding: 0;
+        list-style: none;
+        padding: 0;
 
-          .delete-link {
-            color: red;
-          }
+        .delete-link {
+          color: red;
         }
       }
     }
   }
-}
+

@@ -1,0 +1,8 @@
+<% provide(:title, @link.title) %>
+
+<div class="container">
+  <h3></h3>
+  <div class="link-content"></div>
+  <%= render 'links/link_info', link: @link %>
+  <%= render 'comments/comment_list', comments: @link.comments %>
+</div>

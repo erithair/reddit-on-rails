@@ -17,7 +17,6 @@ RSpec.describe CommentsController, :type => :controller do
   shared_examples_for 'logged-in access' do
     describe "GET #new" do
       it "returns http success" do
-        pending
         get :new, link_id: @link
         expect(response).to have_http_status(:success)
         expect(response).to render_template :new
@@ -26,7 +25,6 @@ RSpec.describe CommentsController, :type => :controller do
 
     describe "POST #create" do
       it "creates a new comment" do
-        pending
         expect {
           post :create, link_id: @link, comment: attributes_for(:comment, user: @user, link: @link)
         }.to change(@user.links, :count).by(1)
@@ -36,7 +34,6 @@ RSpec.describe CommentsController, :type => :controller do
 
     describe "DELETE #destroy" do
       it "delete the comment" do
-        pending
         comment = create(:comment, user: @user, link: @link)
         expect {
           delete :destroy, id: comment, link_id: @link
@@ -45,7 +42,6 @@ RSpec.describe CommentsController, :type => :controller do
       end
 
       it "can not delete other user's link" do
-        pending
         comment = create(:comment, link: @link)
         expect {
           delete :destroy, id: comment, link_id: @link

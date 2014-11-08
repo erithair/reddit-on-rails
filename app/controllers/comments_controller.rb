@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
 
   def index
     @links = Link.includes(:user, :comments).paginate(page: params[:page])
-    @comments = @link.comments
+    @comments = @link.comments.includes(:user)
     render 'links/index'
   end
 

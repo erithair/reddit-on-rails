@@ -1,22 +1,7 @@
 <ul class="link-list">
   <% @links.each do |link| %>
     <li>
-      <div class="row">
-        <div class="image">
-          <%= link_to image_tag(link.url, width: '80', alt: "image for link"), link.url %>
-        </div>
-        <div class="content">
-          <ul>
-            <li><%= link_to link.title, link.url %>
-              <% if link.user == current_user %> -
-                <%= link_to ' (Delete)', link_path(link), method: :delete, class: 'delete-link' %>
-              <% end %>
-            </li>
-            <li>Submitted <%= timeago_tag link.created_at, nojs: true, limit: 10.days.ago %> by <%= link_to link.user.username, link.user %></li>
-            <li><%= link_to pluralize(link.comments.count, 'Comment'), link_comments_path(link) %></li>
-          </ul>
-        </div>
-      </div>
+      <%= render 'links/link_info', link: link %>
     </li>
   <% end %>
 </ul>
