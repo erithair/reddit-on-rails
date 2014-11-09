@@ -22,8 +22,8 @@
 
     <div class="content-container col-md-6">
       <div class="container">
-        <% if @link %>
-          <%= form_for @link, url: links_path, html: { class: 'link-form' } do |f| %>
+        <% if @new_link %>
+          <%= form_for @new_link, url: links_path, html: { class: 'link-form' } do |f| %>
 
             <h3>New link</h3>
             <%= render 'links/form_fields', f: f %>
@@ -33,8 +33,10 @@
           <% end %>
         <% end %>
 
-        <%= render 'links/link_info', link: @link if @link %>
-        <%= render 'comments/comment_list', comments: @comments if @comments %>
+        <% if false # not implemt now %>
+          <%= render 'links/link_info', link: @link %>
+          <%= render 'comments/comment_list', link: @link, comments: @comments %>
+        <% end %>
       </div>
     </div>
 

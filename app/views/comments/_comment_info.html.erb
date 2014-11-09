@@ -4,6 +4,9 @@
       <%= link_to comment.user.username, comment.user %>
       commented
       <%= timeago_tag comment.created_at, nojs: true, limit: 10.days.ago %>
+      <% if comment.user == current_user %>
+      <%= link_to ' (Delete)', link_comment_path(@link, comment), class: 'delete-link', method: :delete, data: { confirm: "Are you sure?" } %>
+      <% end %>
     </li>
     <li class="content">
       <%= comment.content %>

@@ -9,6 +9,6 @@ Rails.application.routes.draw do
 
   resources :users, except: :index
   resources :links do
-    resources :comments, only: [:new, :create, :index, :destroy]
+    resources :comments, only: [:create, :index, :destroy]
   end
 end
