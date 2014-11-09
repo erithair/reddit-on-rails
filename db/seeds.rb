@@ -63,11 +63,12 @@ end
 
 
 # create some comments
-100.times  do
-  user = random(User)
-  link = random(Link)
-  user.comments.create!(
+Link.all.each do |link|
+  rand(5..30).times do
+    user = random(User)
+    user.comments.create!(
     content: Faker::Lorem.paragraph(2, true, 4),
     link_id: link.id,
     created_at: rand(link.created_at..Time.zone.now))
+  end
 end

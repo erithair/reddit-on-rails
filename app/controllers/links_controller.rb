@@ -1,7 +1,8 @@
 class LinksController < ApplicationController
-  before_action :set_link, only: [:show, :edit, :update, :destroy]
-  before_action :requires_login, only: [:new, :create, :edit, :update, :destroy]
-  before_action :user_check, only: [:edit, :update, :destroy]
+  before_action :set_link,          only: [:show, :edit, :update, :destroy]
+  before_action :set_comment_obj,   only: [:show]
+  before_action :requires_login,    only: [:new, :create, :edit, :update, :destroy]
+  before_action :user_check,        only: [:edit, :update, :destroy]
 
   def new
     @link = current_user.links.build
@@ -18,10 +19,11 @@ class LinksController < ApplicationController
   end
 
   def show
+    @comments = @link.comments.includes(:user)
   end
 
   def index
-    @link = current_user.links.build if logged_in?
+    @new_link = current_user.links.build if logged_in?
     @links = Link.includes(:user, :comments).paginate(page: params[:page])
   end
 
@@ -44,6 +46,10 @@ class LinksController < ApplicationController
   end
 
   private
+
+  def set_comment_obj
+    @comment = Comment.new
+  end
 
   def user_check
     unless current_user == @link.user

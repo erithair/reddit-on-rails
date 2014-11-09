@@ -64,7 +64,7 @@ feature 'User' do
     end
   end
 
-  scenario 'submit a new link and then delete it' do
+  scenario 'submit a new link' do
     user = create(:user)
     login_as(user)
 
@@ -74,11 +74,17 @@ feature 'User' do
     click_button 'Submit'
     expect(page).to have_content 'create a new link'
     expect(page).to have_content 'Foo Bar'
+  end
 
-    # delete it
-    click_link 'Delete'
-    expect(page).to_not have_content 'create a new link'
-    expect(page).to_not have_content 'Foo Bar'
+  scenario 'make a comment' do
+    user = create(:user)
+    link = create(:link)
+    login_as(user)
+    visit link_path(link)
+    fill_in 'comment[content]', with: 'Foo Bar'
+    click_button 'Comment'
+    expect(page).to have_content "#{user.username} commented"
+    expect(page).to have_content "Foo Bar"
   end
 
 end

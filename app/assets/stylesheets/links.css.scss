@@ -1,7 +1,3 @@
-// Place all the styles related to the Links controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 .content-container {
   width: 50%;
 
@@ -24,34 +20,34 @@
     padding: 0;
   }
 
-  .link-row {
+.link-row {
+  height: 80px;
+  margin: 0 auto 10px auto;
+  background-color: #f8f8f8;
+
+  .image {
+    float: left;
+    width: 80px;
     height: 80px;
-    margin: 0 auto 10px auto;
-    background-color: #f8f8f8;
+    overflow: hidden;
+  }
 
-    .image {
-      float: left;
-      width: 80px;
-      height: 80px;
-      overflow: hidden;
-    }
-
-    .content {
+  .content {
+    display: inline-block;
+    padding-left: 0;
+    margin-left: 10px;
+    height: 80px;
+    overflow: hidden;
+    ul {
+      margin: 0;
       display: inline-block;
-      padding-left: 0;
-      margin-left: 10px;
-      height: 80px;
-      overflow: hidden;
-      ul {
-        margin: 0;
-        display: inline-block;
-        list-style: none;
-        padding: 0;
+      list-style: none;
+      padding: 0;
 
-        .delete-link {
-          color: red;
-        }
+      .delete-link {
+        color: red;
       }
     }
   }
+}
 

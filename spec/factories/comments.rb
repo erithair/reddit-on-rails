@@ -5,6 +5,7 @@ FactoryGirl.define do
     content { Faker::Lorem.paragraph(2, true, 4) }
     user
     link
+
     after(:build) do |comment|
       comment.user.comments << comment
       comment.link.comments << comment
