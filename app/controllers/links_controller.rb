@@ -23,7 +23,6 @@ class LinksController < ApplicationController
   end
 
   def index
-    @new_link = current_user.links.build if logged_in?
     @links = Link.includes(:user, :comments).paginate(page: params[:page])
   end
 
