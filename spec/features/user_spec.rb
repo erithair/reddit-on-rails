@@ -68,7 +68,7 @@ feature 'User' do
     user = create(:user)
     login_as(user)
 
-    visit root_path
+    visit new_link_path
     fill_in 'link[url]', with: 'http://foobar.com/foo.jpg'
     fill_in 'link[title]', with: 'Foo Bar'
     click_button 'Submit'

@@ -22,8 +22,8 @@
 
     <div class="content-container col-md-6">
       <div class="container">
-        <% if @new_link %>
-          <%= form_for @new_link, url: links_path, html: { class: 'link-form' } do |f| %>
+        <% if @link # not a good idea %>
+          <%= form_for @link, url: links_path, html: { class: 'link-form' } do |f| %>
 
             <h3>New link</h3>
             <%= render 'links/form_fields', f: f %>

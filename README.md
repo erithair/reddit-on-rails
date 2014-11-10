@@ -1,1 +1,0 @@
-exercise from [here](https://github.com/schneems/reddit_on_rails)
