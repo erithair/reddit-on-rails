@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   has_many :links
   has_many :comments
+  has_many :votes
 
   before_save { email.downcase! }
 
