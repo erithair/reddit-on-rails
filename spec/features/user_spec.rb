@@ -87,4 +87,15 @@ feature 'User' do
     expect(page).to have_content "Foo Bar"
   end
 
+  scenario 'vote for a link' do
+    user = create(:user)
+    link = create(:link)
+    login_as(user)
+
+    visit root_path
+    click_link 'Up'
+    expect(page).to have_content 'vote success'
+    expect(link.rank).to eq 1
+  end
+
 end

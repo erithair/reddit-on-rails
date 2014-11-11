@@ -1,7 +1,7 @@
 class LinksController < ApplicationController
-  before_action :set_link,          only: [:show, :edit, :update, :destroy]
+  before_action :set_link,          only: [:show, :edit, :update, :destroy, :vote]
   before_action :set_comment_obj,   only: [:show]
-  before_action :requires_login,    only: [:new, :create, :edit, :update, :destroy]
+  before_action :requires_login,    only: [:new, :create, :edit, :update, :destroy, :vote]
   before_action :user_check,        only: [:edit, :update, :destroy]
 
   def new
@@ -42,6 +42,17 @@ class LinksController < ApplicationController
     @link.destroy
     flash[:success] = 'delete the link'
     redirect_to links_url
+  end
+
+  def vote
+    vote = current_user.votes.build(link: @link, up: params[:vote_up])
+    if vote.save
+      flash[:success] = 'vote success'
+      redirect_to links_url
+    else
+      flash[:warning] = 'you can only vote once for each link'
+      redirect_to links_url
+    end
   end
 
   private

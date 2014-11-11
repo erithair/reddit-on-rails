@@ -2,7 +2,7 @@ class Comment < ActiveRecord::Base
   default_scope { order(created_at: :desc) }
 
   belongs_to :user
-  belongs_to :link
+  belongs_to :link, dependent: :destroy
 
   validates :content, presence: true
   validates :user, presence: true

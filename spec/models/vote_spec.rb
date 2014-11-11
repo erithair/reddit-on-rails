@@ -30,4 +30,16 @@ RSpec.describe Vote, :type => :model do
     vote = create(:vote, user: user, link: link)
     expect(build(:vote, user: user, link: link)).to_not be_valid
   end
+
+  it "calculate the rank" do
+    alice = create(:user)
+    bob   = create(:user)
+    dave  = create(:user)
+
+    link  = create(:link)
+    create(:up_vote, link: link, user: alice)
+    create(:up_vote, link: link, user: bob)
+    create(:down_vote, link: link, user: dave)
+    expect(link.rank).to eq 1
+  end
 end
