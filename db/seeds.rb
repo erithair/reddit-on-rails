@@ -13,7 +13,7 @@ User.create!(username: 'admin',
 
 
 # create 10 users
-10.times do
+30.times do
   User.create!(
     username: Faker::Name.name,
     email: Faker::Internet.email,
@@ -23,9 +23,7 @@ end
 
 # select random subject: User, Link...
 def random(subject)
-  count = 10
-  array = subject.count > count ? subject.take(count) : subject.all
-  array[rand(count)]
+  subject.offset(rand(subject.count)).first
 end
 
 
@@ -70,5 +68,16 @@ Link.all.each do |link|
     content: Faker::Lorem.paragraph(2, true, 4),
     link_id: link.id,
     created_at: rand(link.created_at..Time.zone.now))
+  end
+end
+
+# do some voting
+
+Link.all.each do |link|
+  User.take(rand(10..25)).each do |user|
+    user.votes.create!(
+      up: [true, false].sample,
+      link_id: link.id,
+      created_at: rand(link.created_at..Time.zone.now))
   end
 end

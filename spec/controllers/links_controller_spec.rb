@@ -106,6 +106,25 @@ RSpec.describe LinksController, :type => :controller do
         expect(response).to redirect_to links_path
       end
     end
+
+    describe "POST #vote" do
+      it "vote for a link" do
+        link = create(:link)
+        expect {
+          post :vote, id: link, vote_up: true
+        }.to change(Vote, :count).by(1)
+        expect(link.rank).to eq 1
+        expect(response).to redirect_to links_path
+      end
+
+      it "can't vote for a link more than once" do
+        link = create(:link)
+        create(:vote, user: @user, link: link)
+        expect {
+          post :vote, id: link
+        }.to_not change(Vote, :count)
+      end
+    end
   end
 
   describe "public user" do
@@ -147,6 +166,16 @@ RSpec.describe LinksController, :type => :controller do
         expect {
           delete :destroy, id: link
         }.to_not change(Link, :count)
+        expect(response).to require_login
+      end
+    end
+
+    describe "POST #vote" do
+      it "requires login" do
+        link = create(:link)
+        expect {
+          post :vote, id: link, vote_up: true
+        }.to_not change(Vote, :count)
         expect(response).to require_login
       end
     end

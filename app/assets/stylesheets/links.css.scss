@@ -15,29 +15,32 @@
   position: relative;
   padding: 0;
 }
-  ul.link-list {
-    list-style: none;
-    padding: 0;
-  }
+
+ul.link-list {
+  list-style: none;
+  padding: 0;
+}
 
 .link-row {
-  height: 80px;
-  margin: 0 auto 10px auto;
+  max-height: 80px;
   background-color: #f8f8f8;
+  margin: 10px auto;
 
   .image {
-    float: left;
+    display: inline-block;
     width: 80px;
-    height: 80px;
+    max-height: 80px;
     overflow: hidden;
   }
 
-  .content {
+  .col {
     display: inline-block;
+    height: 100%;
+    margin: 5px;
     padding-left: 0;
-    margin-left: 10px;
-    height: 80px;
+    vertical-align: top;
     overflow: hidden;
+
     ul {
       margin: 0;
       display: inline-block;
@@ -51,3 +54,11 @@
   }
 }
 
+#link-rank {
+  ul {
+    width: 60px;
+    font-weight: bold;
+    font-color: #c6c6c6;
+    text-align: center;
+  }
+}
