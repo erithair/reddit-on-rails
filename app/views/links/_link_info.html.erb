@@ -1,16 +1,24 @@
 <div class="row link-row">
-  <div class="link-rank">
+  <div class="col" id="link-rank">
     <ul>
-      <li><%= link_to 'Up', vote_link_path(link, vote_up: true), method: :post %></li>
+      <li>
+        <%= link_to vote_link_path(link, vote_up: true), method: :post do %>
+          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+        <% end %>
+      </li>
       <li><%= link.rank %></li>
-      <li><%= link_to 'Down', vote_link_path(link, vote_up: false), method: :post %></li>
+      <li>
+        <%= link_to vote_link_path(link, vote_up: false), method: :post do %>
+          <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+        <% end %>
+      </li>
     </ul>
   </div>
 
   <div class="image">
-    <%= link_to image_tag(link.url, width: '80', alt: "image for link"), link.url %>
+    <%= image_tag(link.url, width: '80', alt: "image for link") %>
   </div>
-  <div class="content">
+  <div class="col" id="link-detail">
     <ul>
       <li><%= link_to link.title, link %>
         <% if link.user == current_user %> -
