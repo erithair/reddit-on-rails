@@ -12,8 +12,8 @@ User.create!(username: 'admin',
  password_confirmation: 'foobar')
 
 
-# create 10 users
-30.times do
+# create some users
+100.times do
   User.create!(
     username: Faker::Name.name,
     email: Faker::Internet.email,
@@ -50,13 +50,23 @@ img_urls = ["http://b.thumbs.redditmedia.com/A_h0y5Lg1cowmvUKlrXPm3BBoR46JRcsAxk
  "http://www.redditstatic.com/kill.png"]
 
 # create some links
-50.times do
+135.times do
   user = random(User)
 
   user.links.create!(
     url: img_urls.sample,
     title: Faker::Lorem.sentence,
-    created_at: rand(30).hours.ago)
+    created_at: rand(50.hours.ago..Time.zone.now))
+end
+
+# more links created in specific time
+15.times do
+  user = random(User)
+
+  user.links.create!(
+    url: img_urls.sample,
+    title: Faker::Lorem.sentence,
+    created_at: rand(1.hours.ago..Time.zone.now))
 end
 
 
@@ -65,18 +75,29 @@ Link.all.each do |link|
   rand(5..30).times do
     user = random(User)
     user.comments.create!(
-    content: Faker::Lorem.paragraph(2, true, 4),
-    link_id: link.id,
-    created_at: rand(link.created_at..Time.zone.now))
+      content: Faker::Lorem.paragraph(2, true, 4),
+      link_id: link.id,
+      created_at: rand([link.created_at, Time.zone.now - 1.hours].max..Time.zone.now)
+    )
+  end
+
+  # more comments
+  rand(50..100).times do
+    user = random(User)
+    user.comments.create!(
+      content: Faker::Lorem.paragraph(2, true, 4),
+      link_id: link.id,
+      created_at: rand(link.created_at..Time.zone.now)
+    )
   end
 end
 
 # do some voting
 
 Link.all.each do |link|
-  User.take(rand(10..25)).each do |user|
+  User.take(rand(50..75)).each do |user|
     user.votes.create!(
-      up: [true, false].sample,
+      up: [1, 1, -1].sample,
       link_id: link.id,
       created_at: rand(link.created_at..Time.zone.now))
   end

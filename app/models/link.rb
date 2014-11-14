@@ -1,5 +1,6 @@
 class Link < ActiveRecord::Base
-  default_scope { order(created_at: :desc) }
+  scope :latest,        -> { order(created_at: :desc) }
+  scope :top,           -> { joins(:votes).group('links.id').order('SUM(votes.up) DESC') }
 
   # show 20 links every page
   self.per_page = 20
@@ -13,6 +14,6 @@ class Link < ActiveRecord::Base
   has_many :votes
 
   def rank
-    votes.where(up: true).count - votes.where(up: false).count
+    votes.sum(:up)
   end
 end

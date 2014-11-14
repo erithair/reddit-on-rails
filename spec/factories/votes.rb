@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :vote do
-    up { [true, false].sample }
+    up { [1, -1].sample }
     user
     link
 
@@ -12,11 +12,11 @@ FactoryGirl.define do
     end
 
     factory :up_vote do
-      up true
+      up 1
     end
 
     factory :down_vote do
-      up false
+      up -1
     end
   end
 end

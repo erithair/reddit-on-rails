@@ -1,6 +1,7 @@
 class LinksController < ApplicationController
   before_action :set_link,          only: [:show, :edit, :update, :destroy, :vote]
-  before_action :set_comment_obj,   only: [:show]
+  before_action :set_comment_obj,   only: :show
+  before_action :set_order,         only: :index
   before_action :requires_login,    only: [:new, :create, :edit, :update, :destroy, :vote]
   before_action :user_check,        only: [:edit, :update, :destroy]
 
@@ -23,7 +24,7 @@ class LinksController < ApplicationController
   end
 
   def index
-    @links = Link.includes(:user, :comments).paginate(page: params[:page])
+    @links = Link.send(@order).includes(:user, :comments).paginate(page: params[:page])
   end
 
   def edit
@@ -57,8 +58,25 @@ class LinksController < ApplicationController
 
   private
 
+  def link_params
+    params.require(:link).permit(:url, :title)
+  end
+
+  # hook methods
+
+  def set_order
+    @order = {
+      'latest'         => :latest,
+      'top'            => :top
+      }[params[:order]] || :latest
+  end
+
   def set_comment_obj
     @comment = Comment.new
+  end
+
+  def set_link
+    @link = Link.find(params[:id])
   end
 
   def user_check
@@ -66,13 +84,5 @@ class LinksController < ApplicationController
       flash[:warning] = 'this link belongs to other user'
       redirect_to links_url and return
     end
-  end
-
-  def set_link
-    @link = Link.find(params[:id])
-  end
-
-  def link_params
-    params.require(:link).permit(:url, :title)
   end
 end

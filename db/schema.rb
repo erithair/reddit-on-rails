@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20141110115945) do
   create_table "votes", force: true do |t|
     t.integer  "user_id"
     t.integer  "link_id"
-    t.boolean  "up"
+    t.integer  "up"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -93,7 +93,7 @@ feature 'User' do
     login_as(user)
 
     visit root_path
-    click_link 'Up'
+    click_link "vote-up-link-#{link.id}"
     expect(page).to have_content 'vote success'
     expect(link.rank).to eq 1
   end

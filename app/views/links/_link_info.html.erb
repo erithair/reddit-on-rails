@@ -2,13 +2,13 @@
   <div class="col" id="link-rank">
     <ul>
       <li>
-        <%= link_to vote_link_path(link, vote_up: true), method: :post do %>
+        <%= link_to vote_link_path(link, vote_up: 1), id: "vote-up-link-#{link.id}", method: :post do %>
           <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
         <% end %>
       </li>
       <li><%= link.rank %></li>
       <li>
-        <%= link_to vote_link_path(link, vote_up: false), method: :post do %>
+        <%= link_to vote_link_path(link, vote_up: -1), id: "vote-down-link-#{link.id}", method: :post do %>
           <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
         <% end %>
       </li>

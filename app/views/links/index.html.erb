@@ -6,39 +6,15 @@
     <div class="container-fluid">
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
+          <li><%= link_to 'new', links_path(order: 'latest') %></li>
+          <li><%= link_to 'top', links_path(order: 'top') %></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div><!--/.container-fluid -->
   </nav>
 
-  <div class="row">
-    <div id="links-container" class="col-md-6">
-      <%= render 'links/link_list' %>
-      <%= will_paginate @links %>
-    </div>
-
-    <div class="content-container col-md-6">
-      <div class="container">
-        <% if @link # not a good idea %>
-          <%= form_for @link, url: links_path, html: { class: 'link-form' } do |f| %>
-
-            <h3>New link</h3>
-            <%= render 'links/form_fields', f: f %>
-
-            <%= f.submit 'Submit', class: 'btn btn-primary' %>
-
-          <% end %>
-        <% end %>
-
-        <% if false # not implemt now %>
-          <%= render 'links/link_info', link: @link %>
-          <%= render 'comments/comment_list', link: @link, comments: @comments %>
-        <% end %>
-      </div>
-    </div>
-
+  <div id="links-container" class="container">
+    <%= render 'links/link_list' %>
+    <%= will_paginate @links %>
   </div>
 </div> <!-- /container -->
