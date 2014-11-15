@@ -2,7 +2,9 @@ require 'rails_helper'
 
 feature 'User' do
   scenario "sign up" do
-    user = build(:user)
+    ActionMailer::Base.deliveries.clear
+
+    user = build(:inactivated_user)
 
     visit root_path
     click_link 'Sign up'
@@ -13,7 +15,10 @@ feature 'User' do
       fill_in 'user[password_confirmation]', with: user.password_confirmation
       click_button 'Create'
     }.to change(User, :count).by(1)
-    expect(page).to have_content 'Sign up success'
+    expect(ActionMailer::Base.deliveries.size).to eq 1
+    user = User.find_by(email: user.email)
+    expect(user.activated?).to be_falsy
+    # trouble with testing activation. user.activation_token is nil ???
   end
 
   context "log in" do

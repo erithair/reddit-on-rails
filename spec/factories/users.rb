@@ -6,5 +6,12 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     password 'secret'
     password_confirmation 'secret'
+    activated true
+    activated_at { Time.zone.now }
+
+    factory :inactivated_user do
+      activated false
+      activated_at nil
+    end
   end
 end
