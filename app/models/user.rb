@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
   attr_reader :remember_token
-  attr_accessor :activation_token
+  attr_accessor :activation_token, :reset_token
 
   validates :username, presence: true, length: { in: 4..50 }
   validates :email, presence: true, uniqueness: true, email: true
@@ -32,12 +32,24 @@ class User < ActiveRecord::Base
   end
 
   def activate
-    update_attribute(:activated, true)
-    update_attribute(:activated_at, Time.zone.now)
+    update_columns(activated: true, activated_at: Time.zone.now)
   end
 
   def send_activation_email
     UserMailer.account_activation(self).deliver
+  end
+
+  def create_reset_digest
+    self.reset_token = new_token
+    update_columns(reset_digest: digest(reset_token), reset_sent_at: Time.zone.now)
+  end
+
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver
+  end
+
+  def password_reset_expired?
+    reset_sent_at < 1.hours.ago
   end
 
   private

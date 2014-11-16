@@ -1,0 +1,9 @@
+<% provide(:title, 'Forgot password') %>
+
+<%= form_for :password_reset, url: password_resets_path, html: { class: 'form-signin' } do |f| %>
+  <h2 class="form-signin-heading">Forgot password</h2>
+
+  <%= f.text_field :email, class: 'form-control', placeholder: "Email address" %>
+
+  <%= f.submit 'Submit', class: 'btn btn-primary btn-block' %>
+<% end %>
