@@ -90,6 +90,6 @@ Rails.application.configure do
     :user_name => ENV['MANDRILL_USER_NAME'],
     :password  => ENV['MANDRILL_API_KEY'], # SMTP password is any valid API key
     :authentication => 'login', # Mandrill supports 'plain' or 'login'
-    :domain => 'heroku.com', # your domain to identify your server when connecting
+    :domain => 'herokuapp.com', # your domain to identify your server when connecting
   }
 end
