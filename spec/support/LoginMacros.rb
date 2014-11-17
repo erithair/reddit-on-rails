@@ -18,4 +18,8 @@ module LoginMacros
     click_button 'Log in'
   end
 
+  def is_logged_in?
+    !session[:user_id].nil?
+  end
+
 end

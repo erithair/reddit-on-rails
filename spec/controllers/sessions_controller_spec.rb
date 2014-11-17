@@ -13,6 +13,18 @@ RSpec.describe SessionsController, :type => :controller do
   end
 
   describe "POST #create" do
+    context "log in as inactivated user" do
+      it "require activation" do
+        user = create(:inactivated_user)
+        post :create, session: { email: user.email,
+                                 password: user.password,
+                                 remember_me: '0'}
+        user.reload
+        expect(is_logged_in?).to be_falsy
+        expect(response).to redirect_to root_path
+      end
+    end
+
     context "with valid user info" do
       it "log in, not remember me" do
         post :create, session: { email: @user.email,

@@ -9,7 +9,10 @@
 User.create!(username: 'admin',
  email: 'admin@example.com',
  password: 'foobar',
- password_confirmation: 'foobar')
+ password_confirmation: 'foobar',
+ created_at: 11.days.ago,
+ activated: true,
+ activated_at: 10.days.ago)
 
 
 # create some users
@@ -18,7 +21,10 @@ User.create!(username: 'admin',
     username: Faker::Name.name,
     email: Faker::Internet.email,
     password: 'secret',
-    password_confirmation: 'secret')
+    password_confirmation: 'secret',
+    created_at: 11.days.ago,
+    activated: true,
+    activated_at: 10.days.ago)
 end
 
 # select random subject: User, Link...

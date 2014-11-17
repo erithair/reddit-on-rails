@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   root 'links#index'
 
   resources :users, except: :index
+  resources :account_activations, only: :edit
+  resources :password_resets, only: [:new, :create, :edit, :update]
   resources :links do
     resources :comments, only: [:create, :index, :destroy]
     member do
