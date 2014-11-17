@@ -17,6 +17,7 @@ ul.comment-list {
   min-width: 300px;
   margin: 0 0 15px 0;
   background-color: #f8f8f8;
+  border-radius: 0.5em;
 
   ul {
     margin: 0;
@@ -34,8 +35,9 @@ ul.comment-list {
     }
 
     .content {
-      border: 1px solid blue;
       margin-top: 0;
+      padding: 0;
+      color: #907a70;
     }
   }
 }

@@ -20,18 +20,20 @@
   </div>
   <div class="col" id="link-detail">
     <ul>
-      <li><%= link_to link.title, link %>
+      <li><%= link_to link.title, link, class: 'link-title' %>
         <% if link.user == current_user %> -
           <%= link_to ' (Delete)', link_path(link), method: :delete, class: 'delete-link', data: { confirm: "Are you sure?" } %>
         <% end %>
       </li>
       <li>
-        Submitted
-        <%= timeago_tag link.created_at, nojs: true, limit: 10.days.ago %>
-        by
-        <%= link_to link.user.username, link.user %>
+        <span class="time">
+         Submitted
+         <%= timeago_tag link.created_at, nojs: true, limit: 10.days.ago %>
+         by
+        </span>
+        <%= link_to link.user.username, link.user, class: 'user-name' %>
       </li>
-      <li><%= link_to pluralize(link.comments.count, 'Comment'), link_comments_path(link.id) %></li>
+      <li><%= link_to pluralize(link.comments.count, 'Comment'), link_comments_path(link.id), class: 'link-comment' %></li>
     </ul>
   </div>
 </div>
