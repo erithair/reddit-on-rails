@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'votes/create'
+  get 'search', to: 'search#index'
 
   get     'login',  to:  'sessions#new'
   post    'login',  to:  'sessions#create'

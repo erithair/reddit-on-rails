@@ -31,6 +31,7 @@ gem 'email_validator', '~> 1.4.0'
 gem "faker", '~> 1.4.3'
 gem 'rails-timeago', '~> 2.0'
 gem 'will_paginate', '~> 3.0'
+gem 'textacular', '~> 3.0'
 
 group :development, :test do
   gem "rspec-rails", "~> 3.1.0"
