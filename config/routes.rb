@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
+  get 'pages/about', as: 'about'
+  get 'pages/contact', as: 'contact'
   get 'votes/create'
+
   get 'search', to: 'search#index'
 
   get     'login',  to:  'sessions#new'
