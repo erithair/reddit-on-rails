@@ -3,13 +3,17 @@
 <%= form_for @user, url: password_reset_path(params[:id]), html: { class: 'form-signin' } do |f| %>
   <%= render 'shared/errors', object: f.object %>
 
-  <h2 class="form-signin-heading">Forgot password</h2>
+  <h2 class="form-signin-heading text-center">Forgot password</h2>
 
   <%= hidden_field_tag :email, @user.email %>
 
-  <%= f.password_field :password, class: 'form-control', placeholder: 'Password (6 characters at least)' %>
+  <%= render 'shared/password_field',
+             f: f, param: :password,
+             hold_content: 'Password (6 characters at least)' %>
 
-  <%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'Password confirmation' %>
+  <%= render 'shared/password_field',
+             f: f, param: :password_confirmation,
+             hold_content: 'Password confirmation' %>
 
   <%= f.submit 'Update password', class: 'btn btn-primary btn-block' %>
 <% end %>
