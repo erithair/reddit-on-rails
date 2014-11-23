@@ -1,9 +1,9 @@
 <% provide(:title, 'Password reset') %>
 
-<%= form_for @user, url: password_reset_path(params[:id]), html: { class: 'form-signin' } do |f| %>
+<%= form_for @user, url: password_reset_path(params[:id]), html: { class: 'form-password-reset' } do |f| %>
   <%= render 'shared/errors', object: f.object %>
 
-  <h2 class="form-signin-heading text-center">Forgot password</h2>
+  <h2 class="form-password-reset-heading text-center">Forgot password</h2>
 
   <%= hidden_field_tag :email, @user.email %>
 
@@ -15,5 +15,7 @@
              f: f, param: :password_confirmation,
              hold_content: 'Password confirmation' %>
 
-  <%= f.submit 'Update password', class: 'btn btn-primary btn-block' %>
+  <%= f.button 'Update password',
+               class: 'btn btn-primary btn-block',
+               data: { disable_with: "<i class='fa fa-circle-o-notch fa-spin'></i> Updating..." } %>
 <% end %>

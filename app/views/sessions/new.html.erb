@@ -6,7 +6,7 @@
   <%= render 'shared/email_field', f: f %>
 
   <%= render 'shared/password_field',
-             f: f, param: :password,
+             f: f, input: :password,
              hold_content: 'Password (6 characters at least)' %>
 
   <%= link_to '(forgot password?)', new_password_reset_path %>
@@ -16,5 +16,7 @@
     <span>Remember me</span>
   <% end %>
 
-  <%= f.submit 'Log in', class: 'btn btn-primary btn-block' %>
+  <%= f.button 'Log in',
+               class: 'btn btn-primary btn-block',
+               data: { disable_with: "<i class='fa fa-circle-o-notch fa-spin'></i> Logging in..." } %>
 <% end %>

@@ -1,11 +1,13 @@
 <% provide(:title, 'Edit user') %>
 
-<%= form_for @user, html: { class: 'form-signin' } do |f| %>
+<%= form_for @user, html: { class: 'form-signup' } do |f| %>
   <%= render 'shared/errors', object: f.object %>
 
-  <h2 class="form-signin-heading text-center">Edit user</h2>
+  <h2 class="form-signup-heading text-center">Edit user</h2>
 
   <%= render 'form', f: f %>
 
-  <%= f.submit 'Create', class: 'btn btn-primary btn-block' %>
+  <%= f.button 'Update',
+               class: 'btn btn-primary btn-block',
+               data: { disable_with: "<i class='fa fa-circle-o-notch fa-spin'></i> Updating..." } %>
 <% end %>
