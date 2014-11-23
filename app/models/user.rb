@@ -16,9 +16,40 @@ class User < ActiveRecord::Base
   before_save { email.downcase! }
   before_create :create_activation_digest
 
+
+  # user action methods
+
   def vote(link, kind)
     vote = votes.build(link: link, up: { up: 1, down: -1 }[kind.to_sym])
     vote.save
+  end
+
+  def comment(link, params)
+    comment = comments.build(params.merge(link: link))
+    comment.save
+  end
+
+
+  # email sending methods
+
+  def send_activation_email
+    UserMailer.account_activation(self).deliver
+  end
+
+  def create_reset_digest
+    self.reset_token = new_token
+    update_columns(reset_digest: digest(reset_token), reset_sent_at: Time.zone.now)
+  end
+
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver
+  end
+
+
+  # other methods
+
+  def password_reset_expired?
+    reset_sent_at < 1.hours.ago
   end
 
   def remember
@@ -38,23 +69,6 @@ class User < ActiveRecord::Base
 
   def activate
     update_columns(activated: true, activated_at: Time.zone.now)
-  end
-
-  def send_activation_email
-    UserMailer.account_activation(self).deliver
-  end
-
-  def create_reset_digest
-    self.reset_token = new_token
-    update_columns(reset_digest: digest(reset_token), reset_sent_at: Time.zone.now)
-  end
-
-  def send_password_reset_email
-    UserMailer.password_reset(self).deliver
-  end
-
-  def password_reset_expired?
-    reset_sent_at < 1.hours.ago
   end
 
   private

@@ -5,10 +5,7 @@ class CommentsController < ApplicationController
   before_action :user_check,       only: :destroy
 
   def create
-    @comment = Comment.new(comment_params)
-    @comment.user = current_user
-    @comment.link = @link
-    if @comment.save
+    if current_user.comment(@link, comment_params)
       flash[:success] = "Comment success"
       redirect_to @link
     else
@@ -17,12 +14,6 @@ class CommentsController < ApplicationController
   end
 
   def index
-    # don't like it
-    # @links = Link.includes(:user, :comments).paginate(page: params[:page])
-    # @comments = @link.comments.includes(:user)
-    # @comment = currrent_user.comments.build(link: @link)
-    # render 'links/index'
-
     redirect_to @link
   end
 

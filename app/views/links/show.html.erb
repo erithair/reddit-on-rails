@@ -4,5 +4,5 @@
   <h3></h3>
   <div class="link-content"></div>
   <%= render 'links/link_info', link: @link %>
-  <%= render 'comments/comment_list', link: @link, comments: @comments %>
+  <%= render 'comments/comment_list', link: @link, comments: @link.comments %>
 </div>

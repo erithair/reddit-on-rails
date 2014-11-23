@@ -98,23 +98,39 @@ RSpec.describe User, :type => :model do
     end
   end
 
-  context "vote" do
+  describe "user action" do
     before :each do
       @user = create(:user)
       @link = create(:link)
     end
 
-    it "can not vote for a link more than once" do
-      create(:vote, user: @user, link: @link)
-      expect {
-        @user.vote(@link, :up)
-      }.to_not change(Vote, :count)
+    context "vote" do
+      it "can not vote for a link more than once" do
+        create(:vote, user: @user, link: @link)
+        expect {
+          @user.vote(@link, :up)
+        }.to_not change(Vote, :count)
+      end
+
+      it "vote for a link" do
+        expect {
+          @user.vote(@link, :up)
+        }.to change(Vote, :count).by(1)
+      end
     end
 
-    it "vote for a link" do
-      expect {
-        @user.vote(@link, :up)
-      }.to change(Vote, :count).by(1)
+    context "comment" do
+      it "can not make an empty comment" do
+        expect {
+          @user.comment(@link, content: '')
+        }.to_not change(Comment, :count)
+      end
+
+      it "comment a link" do
+        expect {
+          @user.comment(@link, content: 'foobar')
+        }.to change(Comment, :count).by(1)
+      end
     end
   end
 end

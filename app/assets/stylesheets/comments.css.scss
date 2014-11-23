@@ -4,6 +4,7 @@ ul.comment-list {
 
   .comment-form-container {
     width: 50%;
+    margin-top: 10px;
     margin-bottom: 20px;
 
     .form-group {
@@ -15,7 +16,8 @@ ul.comment-list {
 .comment-row {
   max-width: 600px;
   min-width: 300px;
-  margin: 0 0 15px 0;
+  margin: 10px 0;
+  padding: 5px;
   background-color: #f8f8f8;
   border-radius: 0.5em;
 
