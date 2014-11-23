@@ -46,8 +46,7 @@ class LinksController < ApplicationController
   end
 
   def vote
-    vote = current_user.votes.build(link: @link, up: params[:vote_up])
-    if vote.save
+    if current_user.vote(@link, params[:kind])
       flash[:success] = 'vote success'
       redirect_to links_url
     else

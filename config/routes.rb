@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  get 'pages/about', as: 'about'
-  get 'pages/contact', as: 'contact'
-  get 'votes/create'
+  get 'about', to: 'pages#about'
+  get 'contact', to: 'pages#contact'
 
   get 'search', to: 'search#index'
 

@@ -10,9 +10,23 @@ RSpec.describe SessionsController, :type => :controller do
       get :new
       expect(response).to render_template :new
     end
+
+    it "redirect to home when already log in" do
+      set_user_session(@user)
+      get :new
+      expect(response).to redirect_to root_path
+    end
   end
 
   describe "POST #create" do
+    it "redirect to home when already log in" do
+      set_user_session(@user)
+      post :create, session: { email: @user.email,
+                               password: @user.password,
+                               remember_me: '0'}
+      expect(response).to redirect_to root_path
+    end
+
     context "log in as inactivated user" do
       it "require activation" do
         user = create(:inactivated_user)

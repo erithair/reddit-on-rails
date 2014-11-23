@@ -97,4 +97,24 @@ RSpec.describe User, :type => :model do
       expect(create(:user).authenticate('')).to be_falsy
     end
   end
+
+  context "vote" do
+    before :each do
+      @user = create(:user)
+      @link = create(:link)
+    end
+
+    it "can not vote for a link more than once" do
+      create(:vote, user: @user, link: @link)
+      expect {
+        @user.vote(@link, :up)
+      }.to_not change(Vote, :count)
+    end
+
+    it "vote for a link" do
+      expect {
+        @user.vote(@link, :up)
+      }.to change(Vote, :count).by(1)
+    end
+  end
 end

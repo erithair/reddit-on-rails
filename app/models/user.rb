@@ -16,6 +16,11 @@ class User < ActiveRecord::Base
   before_save { email.downcase! }
   before_create :create_activation_digest
 
+  def vote(link, kind)
+    vote = votes.build(link: link, up: { up: 1, down: -1 }[kind.to_sym])
+    vote.save
+  end
+
   def remember
     @remember_token = new_token
     update_attribute(:remember_digest, digest(@remember_token))

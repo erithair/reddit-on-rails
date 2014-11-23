@@ -111,7 +111,7 @@ RSpec.describe LinksController, :type => :controller do
       it "vote for a link" do
         link = create(:link)
         expect {
-          post :vote, id: link, vote_up: true
+          post :vote, id: link, kind: 'up'
         }.to change(Vote, :count).by(1)
         expect(link.rank).to eq 1
         expect(response).to redirect_to links_path
@@ -121,7 +121,7 @@ RSpec.describe LinksController, :type => :controller do
         link = create(:link)
         create(:vote, user: @user, link: link)
         expect {
-          post :vote, id: link
+          post :vote, id: link, kind: 'up'
         }.to_not change(Vote, :count)
       end
     end
@@ -174,7 +174,7 @@ RSpec.describe LinksController, :type => :controller do
       it "requires login" do
         link = create(:link)
         expect {
-          post :vote, id: link, vote_up: true
+          post :vote, id: link, kind: 'up'
         }.to_not change(Vote, :count)
         expect(response).to require_login
       end
