@@ -1,14 +1,14 @@
-<ul class="comment-list">
-  <div class="comment-form-container">
-    <%= form_for [@link, @comment]  do |f| %>
-      <%= render 'comments/comment_fields', f: f %>
-      <%= f.button 'Comment',
-                   class: 'btn btn-primary',
-                   data: { disable_with: "<i class='fa fa-circle-o-notch fa-spin'></i> Processing..." } %>
-    <% end %>
-  </div>
+<div class="comment-form-container">
+  <%= form_for [@link, @comment]  do |f| %>
+    <%= render 'comments/comment_fields', f: f %>
+    <%= f.button 'Comment',
+                 class: 'btn btn-primary',
+                 data: { disable_with: "<i class='fa fa-circle-o-notch fa-spin'></i> Processing..." } %>
+  <% end %>
+</div>
 
+<ul class="comment-list">
   <% comments.each do |comment| %>
-    <li><%= render 'comments/comment_info', comment: comment %></li>
+    <li><%= render 'comments/comment_info', link: @link, comment: comment %></li>
   <% end %>
 </ul>

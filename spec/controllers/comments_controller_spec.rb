@@ -43,6 +43,25 @@ RSpec.describe CommentsController, :type => :controller do
         expect(response).to redirect_to @link
       end
     end
+
+    describe "POST #vote" do
+      it "vote for a comment" do
+        comment = create(:comment, link: @link)
+        expect {
+          post :vote, id: comment, link_id: @link, up: '1'
+        }.to change(Vote, :count).by(1)
+        expect(comment.rank).to eq 1
+        expect(response).to redirect_to @link
+      end
+
+      it "can't vote for a link more than once" do
+        comment = create(:comment)
+        create(:comment_vote, user: @user, votable: comment)
+        expect {
+          post :vote, id: comment, link_id: @link, up: '1'
+        }.to_not change(Vote, :count)
+      end
+    end
   end
 
   describe "public user" do
@@ -67,6 +86,16 @@ RSpec.describe CommentsController, :type => :controller do
         expect {
           delete :destroy, id: comment, link_id: @link
         }.to_not change(Comment, :count)
+        expect(response).to require_login
+      end
+    end
+
+    describe "POST #vote" do
+      it "requires login" do
+        comment = create(:comment)
+        expect {
+          post :vote, id: comment, link_id: comment.link, up: '1'
+        }.to_not change(Vote, :count)
         expect(response).to require_login
       end
     end

@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_link
-  before_action :set_comment,      only: :destroy
-  before_action :requires_login,   only: [:create, :destroy]
+  before_action :set_comment,      only: [:destroy, :vote]
+  before_action :requires_login,   only: [:create, :destroy, :vote]
   before_action :user_check,       only: :destroy
 
   def create
@@ -21,6 +21,16 @@ class CommentsController < ApplicationController
     @comment.destroy
     flash[:success] = 'delete the comment'
     redirect_to @link
+  end
+
+  def vote
+    if current_user.vote(votable_id: @comment.id, votable_type: 'Comment', up: params[:up])
+      flash[:success] = 'vote success'
+      redirect_to @link
+    else
+      flash[:warning] = 'you can only vote once for each link'
+      redirect_to @link
+    end
   end
 
   private

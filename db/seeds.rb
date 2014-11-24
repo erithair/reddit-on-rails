@@ -16,7 +16,7 @@ User.create!(username: 'admin',
 
 
 # create some users
-30.times do
+20.times do
   User.create!(
     username: Faker::Name.name,
     email: Faker::Internet.email,
@@ -56,7 +56,7 @@ img_urls = ["http://b.thumbs.redditmedia.com/A_h0y5Lg1cowmvUKlrXPm3BBoR46JRcsAxk
  "http://www.redditstatic.com/kill.png"]
 
 # create some links
-35.times do
+25.times do
   user = random(User)
 
   user.links.create!(
@@ -78,7 +78,7 @@ end
 
 # create some comments
 Link.all.each do |link|
-  rand(5..15).times do
+  rand(3..8).times do
     user = random(User)
     user.comments.create!(
       content: Faker::Lorem.paragraph(2, true, 4),
@@ -88,7 +88,7 @@ Link.all.each do |link|
   end
 
   # more comments
-  rand(10..30).times do
+  rand(5..10).times do
     user = random(User)
     user.comments.create!(
       content: Faker::Lorem.paragraph(2, true, 4),
@@ -104,7 +104,18 @@ Link.all.each do |link|
   User.all.each do |user|
     user.votes.create!(
       up: [1, 1, -1].sample,
-      link_id: link.id,
+      votable_id: link.id,
+      votable_type: 'Link',
       created_at: rand(link.created_at..Time.zone.now))
+
+    vote_count = [link.comments.count, 5].min
+    vote_count.times do |i|
+      comment = link.comments[i]
+      user.votes.create!(
+        up: [1, 1, -1].sample,
+        votable_id: comment.id,
+        votable_type: 'Comment',
+        created_at: rand(comment.created_at..Time.zone.now))
+    end
   end
 end

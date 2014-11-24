@@ -1,0 +1,15 @@
+<div class="col rank-field">
+  <ul>
+    <li>
+      <%= link_to vote_link_path(link, kind: 'up'), id: "vote-up-link-#{link.id}", method: :post do %>
+        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+      <% end %>
+    </li>
+    <li><%= link.rank %></li>
+    <li>
+      <%= link_to vote_link_path(link, kind: 'down'), id: "vote-down-link-#{link.id}", method: :post do %>
+        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+      <% end %>
+    </li>
+  </ul>
+</div>

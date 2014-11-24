@@ -1,22 +1,20 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :vote do
+  factory :link_vote, class: 'Vote' do
     up { [1, -1].sample }
     user
-    link
+    association :votable, factory: :link
 
     after(:build) do |vote|
       vote.user.votes << vote
-      vote.link.votes << vote
+      vote.votable.votes << vote
     end
 
-    factory :up_vote do
-      up 1
-    end
-
-    factory :down_vote do
-      up -1
+    factory :comment_vote, class: 'Vote' do
+      up { [1, -1].sample }
+      user
+      association :votable, factory: :comment
     end
   end
 end

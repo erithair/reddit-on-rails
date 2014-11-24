@@ -1,14 +1,14 @@
 <div class="row link-row">
-  <div class="col" id="link-rank">
+  <div class="col rank-field">
     <ul>
       <li>
-        <%= link_to vote_link_path(link, kind: 'up'), id: "vote-up-link-#{link.id}", method: :post do %>
+        <%= link_to vote_link_path(link, up: '1'), id: "vote-up-link-#{link.id}", method: :post do %>
           <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
         <% end %>
       </li>
       <li><%= link.rank %></li>
       <li>
-        <%= link_to vote_link_path(link, kind: 'down'), id: "vote-down-link-#{link.id}", method: :post do %>
+        <%= link_to vote_link_path(link, up: '-1'), id: "vote-down-link-#{link.id}", method: :post do %>
           <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
         <% end %>
       </li>
@@ -18,7 +18,7 @@
   <div class="image">
     <%= image_tag(link.url, width: '80', alt: "image for link") %>
   </div>
-  <div class="col" id="link-detail">
+  <div class="col" id="link-details">
     <ul>
       <li><%= link_to link.title, link, class: 'link-title' %>
         <% if link.user == current_user %> -

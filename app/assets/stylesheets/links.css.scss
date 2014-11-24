@@ -33,15 +33,13 @@ ul.link-list {
       display: inline-block;
       list-style: none;
       padding: 0;
-
-      .delete-link {
-        color: red;
-      }
     }
   }
 }
 
-#link-rank {
+.rank-field {
+  display: inline-block;
+
   ul {
     width: 60px;
     font-weight: bold;
@@ -50,22 +48,26 @@ ul.link-list {
   }
 }
 
-li .link-title {
+.delete-link {
+  color: red;
+}
+
+.link-title {
   color: #5414d3;
   font-size: 1.2em;
   font-weight: bold;
 }
 
-li .time {
+.time {
   color: #57a275;
 }
 
-li .link-comment {
+.link-comment {
   color: #907a70;
   font-weight: bold;
 }
 
-li .user-name {
+.user-name {
   color: #455;
   font-weight: bold;
 }

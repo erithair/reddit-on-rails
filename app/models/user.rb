@@ -3,15 +3,15 @@ class User < ActiveRecord::Base
   attr_reader :remember_token
   attr_accessor :activation_token, :reset_token
 
-  validates :username, presence: true, length: { in: 4..50 }
-  validates :email, presence: true, uniqueness: true, email: true
-  validates :password, length: {  minimum: 6 }
-
-  has_secure_password
-
   has_many :links
   has_many :comments
   has_many :votes
+
+  has_secure_password
+
+  validates :username, presence: true, length: { in: 4..50 }
+  validates :email, presence: true, uniqueness: true, email: true
+  validates :password, length: {  minimum: 6 }
 
   before_save { email.downcase! }
   before_create :create_activation_digest
@@ -19,8 +19,10 @@ class User < ActiveRecord::Base
 
   # user action methods
 
-  def vote(link, kind)
-    vote = votes.build(link: link, up: { up: 1, down: -1 }[kind.to_sym])
+  def vote(options)
+    # treat invalid param as an up vote.
+    options[:up] = 1 unless options[:up] == -1
+    vote = votes.build(options)
     vote.save
   end
 
@@ -36,11 +38,6 @@ class User < ActiveRecord::Base
     UserMailer.account_activation(self).deliver
   end
 
-  def create_reset_digest
-    self.reset_token = new_token
-    update_columns(reset_digest: digest(reset_token), reset_sent_at: Time.zone.now)
-  end
-
   def send_password_reset_email
     UserMailer.password_reset(self).deliver
   end
@@ -50,6 +47,11 @@ class User < ActiveRecord::Base
 
   def password_reset_expired?
     reset_sent_at < 1.hours.ago
+  end
+
+  def create_reset_digest
+    self.reset_token = new_token
+    update_columns(reset_digest: digest(reset_token), reset_sent_at: Time.zone.now)
   end
 
   def remember
