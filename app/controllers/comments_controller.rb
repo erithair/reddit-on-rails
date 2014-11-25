@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
   end
 
   def index
-    redirect_to @link
+    redirect_to link_path(@link, order: params[:order])
   end
 
   def destroy

@@ -1,7 +1,7 @@
 class LinksController < ApplicationController
   before_action :set_link,          only: [:show, :edit, :update, :destroy, :vote]
   before_action :set_comment_obj,   only: :show
-  before_action :set_order,         only: :index
+  before_action :set_order,         only: [:show, :index]
   before_action :requires_login,    only: [:new, :create, :edit, :update, :destroy, :vote]
   before_action :user_check,        only: [:edit, :update, :destroy]
 
@@ -20,11 +20,11 @@ class LinksController < ApplicationController
   end
 
   def show
-    @comments = @link.comments.includes(:user)
+    @comments = @link.comments.send(@order).includes(:user)
   end
 
   def index
-    @links = Link.send(@order).includes(:user, :comments).paginate(page: params[:page])
+    @links = Link.send(@order).includes(:user).paginate(page: params[:page])
   end
 
   def edit
@@ -64,9 +64,11 @@ class LinksController < ApplicationController
   # hook methods
 
   def set_order
+    # avoid invalid info
     @order = {
-      'latest'         => :latest,
-      'top'            => :top
+      'latest'  => :latest,
+      'rank'    => :rank,
+      'hot'     => :hot
       }[params[:order]] || :latest
   end
 

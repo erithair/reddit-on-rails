@@ -164,4 +164,15 @@ feature 'User' do
     expect(link.rank).to eq 1
   end
 
+  scenario 'vote for a comment' do
+    user = create(:user)
+    link = create(:link)
+    comment = create(:comment, link: link)
+    login_as(user)
+
+    visit link_path(link)
+    click_link "vote-up-comment-#{comment.id}"
+    expect(page).to have_content 'vote success'
+  end
+
 end

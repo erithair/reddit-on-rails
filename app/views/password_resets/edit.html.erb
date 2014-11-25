@@ -7,11 +7,11 @@
 
   <%= hidden_field_tag :email, @user.email %>
 
-  <%= render 'shared/password_field',
+  <%= render 'shared/form_field/password_field',
              f: f, param: :password,
              hold_content: 'Password (6 characters at least)' %>
 
-  <%= render 'shared/password_field',
+  <%= render 'shared/form_field/password_field',
              f: f, param: :password_confirmation,
              hold_content: 'Password confirmation' %>
 

@@ -1,8 +1,9 @@
 class Link < ActiveRecord::Base
-  scope :latest,        -> { order(created_at: :desc) }
-  scope :top,           -> { joins(:votes).group('links.id').order('SUM(votes.up) DESC') }
+  scope :latest,  -> { order(created_at: :desc) }
+  scope :rank,    -> { joins(:votes).group('links.id').order('SUM(votes.up) DESC') }
+  scope :hot,     -> { order(comments_count: :desc) }
 
-  belongs_to :user
+  belongs_to :user, counter_cache: true
   has_many :comments
   has_many :votes, as: :votable
 

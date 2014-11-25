@@ -3,7 +3,7 @@
 <%= form_for :password_reset, url: password_resets_path, html: { class: 'form-password-reset' } do |f| %>
   <h2 class="form-password-reset-heading text-center">Forgot password</h2>
 
-  <%= render 'shared/email_field', f: f %>
+  <%= render 'shared/form_field/email_field', f: f %>
 
   <%= f.button 'Submit',
                class: 'btn btn-primary btn-block',

@@ -3,9 +3,9 @@
 <%= form_for :session, html: { class: 'form-signin' } do |f| %>
   <h2 class="form-signin-heading text-center">Log in</h2>
 
-  <%= render 'shared/email_field', f: f %>
+  <%= render 'shared/form_field/email_field', f: f %>
 
-  <%= render 'shared/password_field',
+  <%= render 'shared/form_field/password_field',
              f: f, input: :password,
              hold_content: 'Password (6 characters at least)' %>
 

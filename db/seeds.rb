@@ -93,7 +93,7 @@ Link.all.each do |link|
     user.comments.create!(
       content: Faker::Lorem.paragraph(2, true, 4),
       link_id: link.id,
-      created_at: rand(link.created_at..Time.zone.now)
+      created_at: rand([link.created_at, Time.zone.now - 1.hours].max..Time.zone.now)
     )
   end
 end

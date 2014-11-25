@@ -33,7 +33,7 @@
         </span>
         <%= link_to link.user.username, link.user, class: 'user-name' %>
       </li>
-      <li><%= link_to pluralize(link.comments.count, 'Comment'), link_comments_path(link.id), class: 'link-comment' %></li>
+      <li><%= link_to pluralize(link.comments_count, 'Comment'), link_comments_path(link), class: 'link-comment' %></li>
     </ul>
   </div>
 </div>

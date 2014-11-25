@@ -1,8 +1,9 @@
 class Comment < ActiveRecord::Base
-  default_scope { order(created_at: :desc) }
+  scope :latest,         -> { order(created_at: :desc) }
+  scope :rank,           -> { joins(:votes).group('comments.id').order('SUM(votes.up) DESC') }
 
-  belongs_to :user
-  belongs_to :link, dependent: :destroy
+  belongs_to :user, counter_cache: true
+  belongs_to :link, dependent: :destroy, counter_cache: true
   has_many :votes, as: :votable
 
   validates :content, presence: true

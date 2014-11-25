@@ -3,11 +3,42 @@ require 'rails_helper'
 RSpec.describe LinksController, :type => :controller do
   shared_examples_for 'public access' do
     describe "GET #show" do
+      before :each do
+        @link = create(:link)
+      end
+
       it "assigns a Link to @link" do
-        link = create(:link)
-        get :show, id: link
-        expect(assigns(:link)).to eq link
+        get :show, id: @link
+        expect(assigns(:link)).to eq @link
         expect(response).to render_template :show
+      end
+
+      context "comments order" do
+        before :each do
+          @comment1 = create(:comment, link: @link)
+          @comment2 = create(:comment, link: @link)
+        end
+
+        it "assigns comments to @comments" do
+          get :show, id: @link
+          expect(assigns(:comments)).to match_array([@comment1, @comment2])
+        end
+
+        it "sort by created time desc when not specify the order" do
+          get :show, id: @link
+          expect(assigns(:comments).first).to eq @comment2
+        end
+
+        it "sort by created time desc when specify order: latest" do
+          get :show, id: @link, order: 'latest'
+          expect(assigns(:comments).first).to eq @comment2
+        end
+
+        it "sort by votes when specify order: rank" do
+          create(:comment_vote, votable: @comment1, up: 1)
+          get :show, id: @link, order: 'rank'
+          expect(assigns(:comments).first).to eq @comment1
+        end
       end
     end
 
@@ -18,6 +49,30 @@ RSpec.describe LinksController, :type => :controller do
         get :index
         expect(assigns(:links)).to match_array([link1, link2])
         expect(response).to render_template :index
+      end
+
+      context "links order" do
+        before :each do
+          @link1 = create(:link)
+          @link2 = create(:link)
+        end
+
+        it "sorted by created time desc when specify order: latest" do
+          get :index, order: 'latest'
+          expect(assigns(:links).first).to eq @link2
+        end
+
+        it "sorted by votes when specify order: rank" do
+          create(:link_vote, votable: @link1, up: 1)
+          get :index, order: 'rank'
+          expect(assigns(:links).first).to eq @link1
+        end
+
+        it "sorted by comments count when specify order: hot" do
+          create(:comment, link: @link1)
+          get :index, order: 'hot'
+          expect(assigns(:links).first).to eq @link1
+        end
       end
     end
   end
