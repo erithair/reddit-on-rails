@@ -14,6 +14,10 @@ class Link < ActiveRecord::Base
   # show 20 links every page
   self.per_page = 20
 
+  def self.order_by(order)
+    [:latest, :rank, :hot].include?(order) ? send(order) : send(:latest)
+  end
+
   def rank
     votes.sum(:up)
   end

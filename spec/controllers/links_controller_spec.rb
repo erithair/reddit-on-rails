@@ -163,20 +163,22 @@ RSpec.describe LinksController, :type => :controller do
     end
 
     describe "POST #vote" do
+      before :each do
+        @link = create(:link)
+      end
+
       it "vote for a link" do
-        link = create(:link)
         expect {
-          post :vote, id: link, up: '1'
+          post :vote, id: @link, up: '1'
         }.to change(Vote, :count).by(1)
-        expect(link.rank).to eq 1
+        expect(@link.rank).to eq 1
         expect(response).to redirect_to links_path
       end
 
       it "can't vote for a link more than once" do
-        link = create(:link)
-        create(:link_vote, user: @user, votable: link)
+        create(:link_vote, user: @user, votable: @link)
         expect {
-          post :vote, id: link, up: '1'
+          post :vote, id: @link, up: '1'
         }.to_not change(Vote, :count)
       end
     end

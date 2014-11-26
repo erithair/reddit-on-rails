@@ -20,11 +20,11 @@ class LinksController < ApplicationController
   end
 
   def show
-    @comments = @link.comments.send(@order).includes(:user)
+    @comments = @link.comments.order_by(@order).includes(:user)
   end
 
   def index
-    @links = Link.send(@order).includes(:user).paginate(page: params[:page])
+    @links = Link.order_by(@order).includes(:user).paginate(page: params[:page])
   end
 
   def edit

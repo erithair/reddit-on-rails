@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe CommentsController, :type => :controller do
   shared_examples_for 'public access' do
     describe "GET #index" do
+      # something wrong in this describe {}
       it "assigns comments to @comments" do
         pending "weird nil error, testing it in links#show"
         comment1 = create(:comment, link: @link)
@@ -69,20 +70,22 @@ RSpec.describe CommentsController, :type => :controller do
     end
 
     describe "POST #vote" do
+      before :each do
+        @comment = create(:comment)
+      end
+
       it "vote for a comment" do
-        comment = create(:comment, link: @link)
         expect {
-          post :vote, id: comment, link_id: @link, up: '1'
+          post :vote, id: @comment, link_id: @comment.link, up: '1'
         }.to change(Vote, :count).by(1)
-        expect(comment.rank).to eq 1
-        expect(response).to redirect_to @link
+        expect(@comment.rank).to eq 1
+        expect(response).to redirect_to @comment.link
       end
 
       it "can't vote for a link more than once" do
-        comment = create(:comment)
-        create(:comment_vote, user: @user, votable: comment)
+        create(:comment_vote, user: @user, votable: @comment)
         expect {
-          post :vote, id: comment, link_id: @link, up: '1'
+          post :vote, id: @comment, link_id: @comment.link, up: '1'
         }.to_not change(Vote, :count)
       end
     end
@@ -106,9 +109,9 @@ RSpec.describe CommentsController, :type => :controller do
 
     describe "DELETE #destroy" do
       it "requires login" do
-        comment = create(:comment, link: @link)
+        comment = create(:comment)
         expect {
-          delete :destroy, id: comment, link_id: @link
+          delete :destroy, id: comment, link_id: comment.link
         }.to_not change(Comment, :count)
         expect(response).to require_login
       end
