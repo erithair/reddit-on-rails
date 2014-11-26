@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
+  include UsersHelper
+
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+
   def new
     @user = User.new
   end
@@ -17,6 +20,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    handdle_request
   end
 
   def edit

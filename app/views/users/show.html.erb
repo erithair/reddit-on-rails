@@ -4,39 +4,30 @@
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar sidebar-fixed">
       <ul class="nav nav-sidebar">
-        <li class="text-center user-name">
-          <%= @user.username %>
-          (<%= mail_to @user.email %>)
-        </li>
+        <li class="text-center user-name"><%= @user.username %></li>
+        <li class="li-email text-center"><i class="fa fa-envelope-o"></i><%= mail_to @user.email %></li>
         <li class="divider"></li>
-        <li><%= link_to 'placehlder', '#' %></li>
-        <li><%= link_to 'placelder', '#' %></li>
-        <li><%= link_to 'plaolder', '#' %></li>
-        <li><%= link_to 'plolder', '#' %></li>
+        <li class="<%= if_link_active(:links, @request) %>">
+          <%= link_to "links(#{@user.links_count})", user_path(@user, request: 'links') %>
+        </li>
+        <li class="<%= if_link_active(:comments, @request) %>">
+          <%= link_to "comments(#{@user.comments_count})", user_path(@user, request: 'comments') %>
+        </li>
       </ul>
     </div>
     <div class="col-sm-9 col-md-10 main">
       <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Header</th>
-              <th>Header</th>
-              <th>Header</th>
-              <th>Header</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1,015</td>
-              <td>sodales</td>
-              <td>ligula</td>
-              <td>in</td>
-              <td>libero</td>
-            </tr>
-          </tbody>
-        </table>
+        <% if @request == :links %>
+          <%= render 'links/link_list' %>
+        <% elsif @request == :comments %>
+          <% @comments.each do |comment| %>
+            <% link = comment.link %>
+            <li class="link-row"><%= link_to link.title, link %></li>
+            <li class="comment-row"><%= render 'comments/comment_info', link: link, comment: comment %></li>
+          <% end %>
+        <% else %>
+          <!-- extend in the futuere -->
+        <% end %>
       </div>
     </div>
   </div>

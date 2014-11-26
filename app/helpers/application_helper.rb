@@ -4,7 +4,8 @@ module ApplicationHelper
     title.empty? ? base_title : "#{title} - #{base_title}"
   end
 
-  def is_link_active?(order)
-    order == @order ? 'active' : ''
+  def if_link_active(actual, expect)
+    actual == expect ? 'active' : ''
   end
+
 end

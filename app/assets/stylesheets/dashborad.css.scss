@@ -1,5 +1,42 @@
 #dashboard-container {
   margin-top: 20px;
+
+  li {
+    list-style: none;
+  }
+
+  .divider {
+    margin-bottom: 10px;
+    border-bottom: 1px dotted #a27157;
+  }
+
+  li.active {
+    width: 100%;
+    background-color: red;
+    color: #fff;
+  }
+
+  .li-email {
+    a {
+      color: #1a5e25;
+      display: inline-block;
+    }
+  }
+
+  li.link-row {
+    padding-left: 80px;
+    margin-bottom: 0;
+  }
+
+  li.comment-row {
+    border-bottom: 1px solid #91553d;
+    margin-top: 0;
+    margin-bottom: 20px;
+
+    .comment-row {
+      margin-top: 0;
+    }
+  }
 }
 
 /*
