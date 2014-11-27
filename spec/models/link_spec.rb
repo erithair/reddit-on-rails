@@ -51,4 +51,32 @@ RSpec.describe Link, :type => :model do
     link.user = nil
     expect(link).to_not be_valid
   end
+
+  context "order" do
+    before :each do
+      @link1 = create(:link)
+      @link2 = create(:link)
+      @link3 = create(:link)
+    end
+
+    it "sorted by created time DESC" do
+      expect(Link.order_by(:latest).first).to eq @link3
+    end
+
+    it "sorted by rank(votes count)" do
+      create(:link_vote, votable: @link1, up: -1)
+      create(:link_vote, votable: @link2, up: 1)
+
+      expect(Link.order_by(:rank).first).to eq @link2
+      expect(Link.order_by(:rank).last).to eq @link1
+    end
+
+    it "sorted by hot(comments count)" do
+      create(:comment, link: @link1)
+      2.times { create(:comment, link: @link2) }
+
+      expect(Link.order_by(:hot).first).to eq @link2
+      expect(Link.order_by(:hot).last).to eq @link3
+    end
+  end
 end
