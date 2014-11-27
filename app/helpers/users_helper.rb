@@ -1,17 +1,5 @@
 module UsersHelper
-  def handdle_request
-    @request = {
-      'links'    => :links,
-      'comments' => :comments
-    }[params[:request]] || :links
-
-    case @request
-    when :links
-      @links = @user.links.includes(:user)
-    when :comments
-      @comments = @user.comments
-    else
-      # extend in the future
-    end
+  def active_if_exist(object)
+    object ? 'active' : ''
   end
 end

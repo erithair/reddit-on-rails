@@ -9,7 +9,7 @@
 
 <ul class="comment-list">
   <li>
-    <div class="nav comments-nav-bar">
+    <div class="order-nav-bar">
       <ul class="list-inline">
         <li class="<%= if_link_active(:latest, @order) %>"><%= link_to 'latest', link_path(@link, order: 'latest') %></li>
         <li class="<%= if_link_active(:rank, @order) %>"><%= link_to 'high votes', link_path(@link, order: 'rank' ) %></li>

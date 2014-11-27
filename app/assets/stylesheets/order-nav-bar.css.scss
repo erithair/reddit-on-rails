@@ -1,0 +1,17 @@
+.order-nav-bar {
+  max-width: 890px;
+  height: 30px;
+  line-height: 30px;
+  list-style: none;
+  padding-left: 60px;
+  background-color: #dedede;
+  border-radius: 0.5em;
+
+  li {
+    display: inline-block;
+  }
+
+  .active {
+    font-weight: bold;
+  }
+}

@@ -2,24 +2,47 @@
 
 <div id="dashboard-container" class="container-fluid">
   <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar sidebar-fixed">
+    <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
         <li class="text-center user-name"><%= @user.username %></li>
-        <li class="li-email text-center"><i class="fa fa-envelope-o"></i><%= mail_to @user.email %></li>
+        <li class="li-email text-center"><i class="fa fa-envelope-o"></i><%= mail_to @user.email, 'Email' %></li>
         <li class="divider"></li>
-        <li class="<%= if_link_active(:links, @request) %>">
-          <%= link_to "links(#{@user.links_count})", user_path(@user, request: 'links') %>
+        <li class="<%= active_if_exist(@links) %>">
+          <%= link_to "links(#{@user.links_count})", links_user_path(@user) %>
         </li>
-        <li class="<%= if_link_active(:comments, @request) %>">
-          <%= link_to "comments(#{@user.comments_count})", user_path(@user, request: 'comments') %>
+        <li class="<%= active_if_exist(@comments) %>">
+          <%= link_to "comments(#{@user.comments_count})", comments_user_path(@user) %>
         </li>
       </ul>
     </div>
     <div class="col-sm-9 col-md-10 main">
       <div class="table-responsive">
-        <% if @request == :links %>
+        <% if @links %>
+          <div class="order-nav-bar">
+            <ul class="list-inline">
+              <li class="<%= if_link_active(:latest, @order) %>">
+                <%= link_to 'latest', links_user_path(@user, order: 'latest') %>
+              </li>
+              <li class="<%= if_link_active(:rank, @order) %>">
+                <%= link_to 'high votes', links_user_path(@user, order: 'rank' ) %>
+              </li>
+              <li class="<%= if_link_active(:hot, @order) %>">
+                <%= link_to 'most comments', links_user_path(@user, order: 'rank' ) %>
+              </li>
+            </ul>
+          </div>
           <%= render 'links/link_list' %>
-        <% elsif @request == :comments %>
+        <% elsif @comments %>
+            <div class="order-nav-bar">
+              <ul class="list-inline">
+                <li class="<%= if_link_active(:latest, @order) %>">
+                  <%= link_to 'latest', comments_user_path(@user, order: 'latest') %>
+                </li>
+                <li class="<%= if_link_active(:rank, @order) %>">
+                  <%= link_to 'high votes', comments_user_path(@user, order: 'rank' ) %>
+                </li>
+              </ul>
+            </div>
           <% @comments.each do |comment| %>
             <% link = comment.link %>
             <li class="link-row"><%= link_to link.title, link %></li>

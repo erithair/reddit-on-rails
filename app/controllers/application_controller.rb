@@ -14,4 +14,13 @@ class ApplicationController < ActionController::Base
       redirect_to login_url and return
     end
   end
+
+  def set_order
+    # avoid invalid info
+    @order = {
+      'latest'  => :latest,
+      'rank'    => :rank,
+      'hot'     => :hot
+    }[params[:order]] || :latest
+  end
 end

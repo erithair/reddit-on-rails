@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   include UsersHelper
 
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :links, :comments]
+  before_action :set_order, only: [:show, :links, :comments]
 
   def new
     @user = User.new
@@ -19,8 +20,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    handdle_request
+    redirect_to links_user_url
   end
 
   def edit
@@ -39,6 +39,16 @@ class UsersController < ApplicationController
     @user.destroy
     flash[:success] = 'delete user'
     redirect_to root_url
+  end
+
+  def links
+    @links = @user.links.order_by(@order).includes(:user)
+    render :show
+  end
+
+  def comments
+    @comments = @user.comments.order_by(@order).includes(:user)
+    render :show
   end
 
   private

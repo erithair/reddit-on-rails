@@ -24,7 +24,7 @@ RSpec.describe UsersController, :type => :controller do
       user = create(:user)
       get :show, id: user
       expect(assigns(:user)).to eq user
-      expect(response).to render_template :show
+      expect(response).to redirect_to links_user_path
     end
   end
 
@@ -75,6 +75,68 @@ RSpec.describe UsersController, :type => :controller do
         delete :destroy, id: user
       }.to change(User, :count).by(-1)
       expect(response).to redirect_to root_path
+    end
+  end
+
+  describe "GET #links" do
+    before :each do
+      @user = create(:user)
+      @link1 = create(:link, user: @user)
+      @link2 = create(:link, user: @user)
+    end
+
+    it "assigns links to @comments" do
+      get :links, id: @user
+      expect(assigns(:links)).to match_array([@link1, @link2])
+    end
+
+    it "sorted by created time desc when specify order: latest" do
+      get :links, id: @user, order: 'latest'
+      expect(assigns(:links).first).to eq @link2
+    end
+
+    it "sorted by votes when specify order: rank" do
+      create(:link_vote, votable: @link1, up: 1)
+
+      get :links, id: @user, order: 'rank'
+      expect(assigns(:links).first).to eq @link1
+    end
+
+    it "sorted by comments count when specify order: hot" do
+      create(:comment, link: @link1)
+
+      get :links, id: @user, order: 'hot'
+      expect(assigns(:links).first).to eq @link1
+    end
+  end
+
+  describe "GET #comments" do
+    before :each do
+      @user = create(:user)
+      @comment1 = create(:comment, user: @user)
+      @comment2 = create(:comment, user: @user)
+    end
+
+    it "assigns comments to @comments" do
+      get :comments, id: @user
+      expect(assigns(:comments)).to match_array([@comment1, @comment2])
+    end
+
+    it "sort by created time desc when not specify the order" do
+      get :comments, id: @user
+      expect(assigns(:comments).first).to eq @comment2
+    end
+
+    it "sort by created time desc when specify order: latest" do
+      get :comments, id: @user, order: 'latest'
+      expect(assigns(:comments).first).to eq @comment2
+    end
+
+    it "sort by votes when specify order: rank" do
+      create(:comment_vote, votable: @comment1, up: 1)
+
+      get :comments, id: @user, order: 'rank'
+      expect(assigns(:comments).first).to eq @comment1
     end
   end
 

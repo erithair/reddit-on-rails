@@ -66,7 +66,7 @@ img_urls = ["http://b.thumbs.redditmedia.com/A_h0y5Lg1cowmvUKlrXPm3BBoR46JRcsAxk
 end
 
 # more links created in specific time
-15.times do
+5.times do
   user = random(User)
 
   user.links.create!(
@@ -75,12 +75,22 @@ end
     created_at: rand(1.hours.ago..Time.zone.now))
 end
 
+10.times do
+  user = random(User)
+
+  user.links.create!(
+    url: img_urls.sample,
+    title: Faker::Lorem.sentence,
+    created_at: rand(5.hours.ago..Time.zone.now))
+end
+
+
 # create some links by admin user
 rand(5..10).times do
   admin.links.create!(
     url: img_urls.sample,
     title: Faker::Lorem.sentence,
-    created_at: rand(1.hours.ago..Time.zone.now))
+    created_at: rand(2.hours.ago..Time.zone.now))
 end
 
 
