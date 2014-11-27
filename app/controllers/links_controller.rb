@@ -63,15 +63,6 @@ class LinksController < ApplicationController
 
   # hook methods
 
-  def set_order
-    # avoid invalid info
-    @order = {
-      'latest'  => :latest,
-      'rank'    => :rank,
-      'hot'     => :hot
-      }[params[:order]] || :latest
-  end
-
   def set_comment_obj
     @comment = Comment.new
   end

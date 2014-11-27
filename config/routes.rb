@@ -12,7 +12,13 @@ Rails.application.routes.draw do
 
   root 'links#index'
 
-  resources :users, except: :index
+  resources :users, except: :index do
+    member do
+      get 'links'
+      get 'comments'
+    end
+  end
+
   resources :account_activations, only: :edit
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :links do

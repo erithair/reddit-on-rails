@@ -4,9 +4,9 @@
     <div class="container-fluid">
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li class="<%= is_link_active?(:latest) %>"><%= link_to 'latest', links_path(order: 'latest') %></li>
-          <li class="<%= is_link_active?(:rank) %>"><%= link_to 'high votes', links_path(order: 'rank') %></li>
-          <li class="<%= is_link_active?(:hot) %>"><%= link_to 'most comments', links_path(order: 'hot') %></li>
+          <li class="<%= if_link_active(:latest, @order) %>"><%= link_to 'latest', links_path(order: 'latest') %></li>
+          <li class="<%= if_link_active(:rank, @order) %>"><%= link_to 'high votes', links_path(order: 'rank') %></li>
+          <li class="<%= if_link_active(:hot, @order) %>"><%= link_to 'most comments', links_path(order: 'hot') %></li>
           <li>
               <%= form_tag(search_path, method: :get, class: 'navbar-form form-inline') do %>
               <div class="form-group">

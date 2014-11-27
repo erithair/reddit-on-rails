@@ -2,13 +2,13 @@
   <div class="col rank-field">
     <ul>
       <li>
-        <%= link_to vote_link_comment_path(link, comment, up: '1'), id: "vote-up-comment-#{comment.id}", method: :post do %>
+        <%= link_to vote_link_comment_path(link, comment, up: '1'), id: "vote-up-comment-#{comment.id}", class: if_voted(comment: comment, up: 1), method: :post do %>
           <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
         <% end %>
       </li>
       <li><%= comment.rank %></li>
       <li>
-        <%= link_to vote_link_comment_path(link, comment, up: '-1'), id: "vote-down-comment-#{comment.id}", method: :post do %>
+        <%= link_to vote_link_comment_path(link, comment, up: '-1'), id: "vote-down-comment-#{comment.id}", class: if_voted(comment: comment, up: -1), method: :post do %>
           <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
         <% end %>
       </li>
@@ -24,7 +24,7 @@
           <%= timeago_tag comment.created_at, nojs: true, limit: 10.days.ago %>
         </span>
         <% if comment.user == current_user %>
-        <%= link_to ' (Delete)', link_comment_path(@link, comment), class: 'delete-link', method: :delete, data: { confirm: "Are you sure?" } %>
+        <%= link_to ' (Delete)', link_comment_path(link, comment), class: 'delete-link', method: :delete, data: { confirm: "Are you sure?" } %>
         <% end %>
       </li>
       <li class="content">

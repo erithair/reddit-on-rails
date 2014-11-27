@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.create!(username: 'admin',
+admin = User.create!(username: 'admin',
  email: 'admin@example.com',
  password: 'foobar',
  password_confirmation: 'foobar',
@@ -66,13 +66,31 @@ img_urls = ["http://b.thumbs.redditmedia.com/A_h0y5Lg1cowmvUKlrXPm3BBoR46JRcsAxk
 end
 
 # more links created in specific time
-15.times do
+5.times do
   user = random(User)
 
   user.links.create!(
     url: img_urls.sample,
     title: Faker::Lorem.sentence,
     created_at: rand(1.hours.ago..Time.zone.now))
+end
+
+10.times do
+  user = random(User)
+
+  user.links.create!(
+    url: img_urls.sample,
+    title: Faker::Lorem.sentence,
+    created_at: rand(5.hours.ago..Time.zone.now))
+end
+
+
+# create some links by admin user
+rand(5..10).times do
+  admin.links.create!(
+    url: img_urls.sample,
+    title: Faker::Lorem.sentence,
+    created_at: rand(2.hours.ago..Time.zone.now))
 end
 
 
@@ -101,7 +119,11 @@ end
 # do some voting
 
 Link.all.each do |link|
-  User.all.each do |user|
+  # treat admin specially
+  users = User.all.to_a
+  users.delete(admin)
+
+  users.each do |user|
     user.votes.create!(
       up: [1, 1, -1].sample,
       votable_id: link.id,
@@ -118,4 +140,22 @@ Link.all.each do |link|
         created_at: rand(comment.created_at..Time.zone.now))
     end
   end
+end
+
+# admin user voting
+
+Link.all.sample(Link.count / 3).each do |link|
+  admin.votes.create!(
+    up: [1, 1, -1].sample,
+    votable_id: link.id,
+    votable_type: 'Link',
+    created_at: rand(link.created_at..Time.zone.now))
+end
+
+Comment.all.sample(Comment.count / 3).each do |comment|
+  admin.votes.create!(
+        up: [1, 1, -1].sample,
+        votable_id: comment.id,
+        votable_type: 'Comment',
+        created_at: rand(comment.created_at..Time.zone.now))
 end
