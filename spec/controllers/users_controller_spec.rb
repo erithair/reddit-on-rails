@@ -46,7 +46,6 @@ RSpec.describe UsersController, :type => :controller do
       it "updates new data" do
         patch :update, id: @user, user: attributes_for(:user,
           username: 'New Name',
-          email: @user.email,
           password: @user.password,
           password_confirmation: @user.password_confirmation)
         @user.reload
@@ -55,10 +54,9 @@ RSpec.describe UsersController, :type => :controller do
       end
     end
     context "with invalid attributes" do
-      it "not updates new data" do
+      it "not updates new data with invalid username" do
         patch :update, id: @user, user: attributes_for(:user,
           username: 'l',
-          email: @user.email,
           password: @user.password,
           password_confirmation: @user.password_confirmation)
         @user.reload

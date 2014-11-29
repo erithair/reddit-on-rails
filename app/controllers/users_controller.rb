@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy, :links, :comments]
   before_action :set_order, only: [:show, :links, :comments]
+  before_action :disable_email_field, only: [:edit, :update]
 
   def new
     @user = User.new
@@ -53,11 +54,17 @@ class UsersController < ApplicationController
 
   private
 
+  def disable_email_field
+    @disable_email_field = true
+  end
+
   def set_user
     @user = User.find(params[:id])
   end
 
   def user_params
-    params.require(:user).permit(:username, :email, :password, :password_confirmation)
+    input = [:username, :password, :password_confirmation]
+    input << :email unless @disable_email_field
+    params.require(:user).permit(*input)
   end
 end
