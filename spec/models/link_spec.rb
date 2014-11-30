@@ -79,4 +79,16 @@ RSpec.describe Link, :type => :model do
       expect(Link.order_by(:hot).last).to eq @link3
     end
   end
+
+  context "counter" do
+    before :each do
+      @link = create(:link)
+    end
+
+    it "returns comments count" do
+      3.times { create(:comment, link: @link) }
+      @link.reload
+      expect(@link.comments_count).to eq 3
+    end
+  end
 end

@@ -98,7 +98,7 @@ RSpec.describe User, :type => :model do
     end
   end
 
-  describe "user action" do
+  describe "user instance methods" do
     before :each do
       @user = create(:user)
       @link = create(:link)
@@ -145,6 +145,20 @@ RSpec.describe User, :type => :model do
         expect {
           @user.comment(@link, content: 'foobar')
         }.to change(Comment, :count).by(1)
+      end
+    end
+
+    context 'counter' do
+      it "returns links count" do
+        3.times { create(:link, user: @user) }
+        @user.reload
+        expect(@user.links_count).to eq 3
+      end
+
+      it "returns comments count" do
+        3.times { create(:comment, user: @user) }
+        @user.reload
+        expect(@user.comments_count).to eq 3
       end
     end
   end
