@@ -3,39 +3,11 @@ require 'rails_helper'
 RSpec.describe CommentsController, :type => :controller do
   shared_examples_for 'public access' do
     describe "GET #index" do
-      # something wrong in this describe {}
-      it "assigns comments to @comments" do
-        pending "weird nil error, testing it in links#show"
-        comment1 = create(:comment, link: @link)
-        comment2 = create(:comment, link: @link)
+      # test in links#show
+
+      it "redirect_to links#show" do
         get :index, link_id: @link
         expect(response).to redirect_to @link
-        expect(assigns(:comments)).to match_array([comment1, comment2])
-      end
-      context "not specify the order" do
-        before :each do
-          @comment1 = create(:comment, link: @link)
-          @comment2 = create(:comment, link: @link)
-        end
-
-        it "comments sorted by created time desc when not specify the order" do
-          pending "weird nil error, testing it in links#show"
-          get :index, link_id: @link, order: 'latest'
-          expect(assigns(:comments).first).to eq @comment2
-        end
-
-        it "comments sort by created time desc when specify order: latest" do
-          pending "weird nil error, testing it in links#show"
-          get :index, link_id: @link, order: 'latest'
-          expect(assigns(:comments).first).to eq @comment2
-        end
-
-        it "comments sort by votes when specify order: rank" do
-          pending "weird nil error, testing it in links#show"
-          create(:comment_vote, votable: @comment1, up: 1)
-          get :index, link_id: @link, order: 'rank'
-          expect(assigns(:comments).first).to eq @comment1
-        end
       end
     end
   end

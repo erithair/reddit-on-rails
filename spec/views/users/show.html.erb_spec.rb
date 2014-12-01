@@ -8,5 +8,6 @@ RSpec.describe "users/show.html.erb", :type => :view do
     render
 
     expect(rendered).to have_content user.username
+    expect(rendered).to have_content user.email
   end
 end
