@@ -27,7 +27,7 @@
                 <%= link_to 'high votes', links_user_path(@user, order: 'rank' ) %>
               </li>
               <li class="<%= if_link_active(:hot, @order) %>">
-                <%= link_to 'most comments', links_user_path(@user, order: 'rank' ) %>
+                <%= link_to 'most comments', links_user_path(@user, order: 'hot' ) %>
               </li>
             </ul>
           </div>
