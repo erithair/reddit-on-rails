@@ -41,6 +41,11 @@ group :development, :test do
   gem 'spring-commands-rspec', '~> 1.0.2'
 end
 
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
+
 group :test do
   gem "capybara", "~> 2.4.3"
   gem "database_cleaner", "~> 1.3.0"
