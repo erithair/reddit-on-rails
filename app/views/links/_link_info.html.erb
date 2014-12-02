@@ -40,7 +40,7 @@
         <%= link_to link.user.username, link.user, class: 'user-name' %>
       </li>
       <li>
-        <%= link_to link_comments_path(link), class: 'link-comment' do %>
+        <%= link_to link, class: 'link-comment' do %>
           <i class="fa fa-comments-o"></i> <%= pluralize(link.comments_count, 'Comment') %>
         <% end %>
       </li>

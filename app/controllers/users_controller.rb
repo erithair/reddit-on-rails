@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
   include UsersHelper
 
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :links, :comments]
-  before_action :set_order, only: [:show, :links, :comments]
-  before_action :disable_email_field, only: [:edit, :update]
+  before_action :set_user,             only: [:show, :edit, :update, :destroy, :links, :comments]
+  before_action :set_order,            only: [:show, :links, :comments]
+  before_action :set_links,            only: [:show, :links]
+  before_action :set_comments,         only: [:comments]
+  before_action :disable_email_field,  only: [:edit, :update]
 
   def new
     @user = User.new
@@ -21,7 +23,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    redirect_to links_user_url
   end
 
   def edit
@@ -43,12 +44,10 @@ class UsersController < ApplicationController
   end
 
   def links
-    @links = @user.links.order_by(@order).includes(:user)
     render :show
   end
 
   def comments
-    @comments = @user.comments.order_by(@order).includes(:user)
     render :show
   end
 
@@ -60,6 +59,14 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def set_links
+    @links = @user.links.order_by(@order).includes(:user)
+  end
+
+  def set_comments
+    @comments = @user.comments.order_by(@order).includes(:user)
   end
 
   def user_params

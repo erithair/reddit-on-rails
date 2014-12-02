@@ -24,7 +24,7 @@ RSpec.describe UsersController, :type => :controller do
       user = create(:user)
       get :show, id: user
       expect(assigns(:user)).to eq user
-      expect(response).to redirect_to links_user_path
+      expect(response).to render_template :show
     end
   end
 
