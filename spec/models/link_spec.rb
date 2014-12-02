@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: links
+#
+#  id             :integer          not null, primary key
+#  user_id        :integer
+#  url            :string(255)
+#  title          :string(255)
+#  created_at     :datetime
+#  updated_at     :datetime
+#  comments_count :integer          default(0), not null
+#
+
 require 'rails_helper'
 
 RSpec.describe Link, :type => :model do

@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: votes
+#
+#  id           :integer          not null, primary key
+#  user_id      :integer
+#  up           :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#  votable_id   :integer
+#  votable_type :string(255)
+#
+
 require 'rails_helper'
 
 RSpec.describe Vote, :type => :model do

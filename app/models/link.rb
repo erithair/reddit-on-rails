@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: links
+#
+#  id             :integer          not null, primary key
+#  user_id        :integer
+#  url            :string(255)
+#  title          :string(255)
+#  created_at     :datetime
+#  updated_at     :datetime
+#  comments_count :integer          default(0), not null
+#
+
 class Link < ActiveRecord::Base
   scope :latest,  -> { order(created_at: :desc) }
   scope :rank,    -> { joins(:votes).group('links.id').order('SUM(votes.up) DESC') }

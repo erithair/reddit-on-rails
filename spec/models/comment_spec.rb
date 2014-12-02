@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: comments
+#
+#  id         :integer          not null, primary key
+#  content    :text
+#  user_id    :integer
+#  link_id    :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require 'rails_helper'
 
 RSpec.describe Comment, :type => :model do
