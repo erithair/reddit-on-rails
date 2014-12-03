@@ -2,9 +2,9 @@
   <% @links.each do |link| %>
     <li>
       <%= render 'links/link_info', link: link %>
+      <% if @collapse_comments %>
+        <%= render 'comments/comments_collapse', link: link, comments: link.comments %>
+      <% end %>
     </li>
-    <% if @collapse_comments %>
-      <%= render 'comments/comments_collapse', link: link, comments: link.comments %>
-    <% end %>
   <% end %>
 </ul>
