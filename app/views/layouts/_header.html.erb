@@ -40,8 +40,8 @@
           </ul>
         </li>
       <% else %>
-        <li><%= link_to 'Log in', login_path %></li>
-        <li><%= link_to 'Sign up', signup_path %></li>
+        <li><%= link_to 'Log in', '#', data: { toggle: 'modal', target: '#loginModal' } %></li>
+        <li><%= link_to 'Sign up', '#', data: { toggle: 'modal', target: '#signupModal' } %></li>
       <% end %>
     </ul>
   </div>

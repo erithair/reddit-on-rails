@@ -15,6 +15,49 @@
 
   <%= yield %>
 
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        </div>
+        <div class="modal-body">
+          <%= render 'sessions/login_form' %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signup Modal -->
+  <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        </div>
+        <div class="modal-body">
+          <%= form_for :user, url: users_path, html: { class: 'form-signup' } do |f| %>
+
+            <h2 class="form-signup-heading text-center">Sign up</h2>
+
+            <%= render 'users/form', f: f %>
+
+            <%= f.button 'Create',
+                         class: 'btn btn-primary btn-block',
+                         data: { disable_with: "<i class='fa fa-circle-o-notch fa-spin'></i> Processing..." } %>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <%= debug(params) if Rails.env.development? %>
 
