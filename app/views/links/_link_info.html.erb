@@ -49,7 +49,7 @@
       </li>
       <li>
         <% if @collapse_comments %>
-          <%= link_to '', class: 'link-comment', data: { toggle: 'collapse', target: "#comments-of-link-#{link.id}" } do %>
+          <%= link_to '#:-)', class: 'link-comment', data: { toggle: 'collapse', target: "#comments-of-link-#{link.id}" } do %>
           <i class="fa fa-comments-o"></i> <%= pluralize(link.comments_count, 'Comment') %>
           <% end %>
         <% else %>
