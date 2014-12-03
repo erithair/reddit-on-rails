@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_action :set_order,            only: [:show, :links, :comments]
   before_action :set_links,            only: [:show, :links]
   before_action :set_comments,         only: [:comments]
+  before_action :collapse_comments,    only: [:show, :links, :comments]
   before_action :disable_email_field,  only: [:edit, :update]
 
   def new
@@ -55,6 +56,10 @@ class UsersController < ApplicationController
 
   def disable_email_field
     @disable_email_field = true
+  end
+
+  def collapse_comments
+    @collapse_comments = true
   end
 
   def set_user

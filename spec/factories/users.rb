@@ -17,6 +17,10 @@
 #  links_count       :integer          default(0), not null
 #  comments_count    :integer          default(0), not null
 #
+# Indexes
+#
+#  index_users_on_email  (email) UNIQUE
+#
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
 

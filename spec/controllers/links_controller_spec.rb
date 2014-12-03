@@ -171,6 +171,7 @@ RSpec.describe LinksController, :type => :controller do
         expect {
           post :vote, id: @link, up: '1'
         }.to change(Vote, :count).by(1)
+        @link.reload
         expect(@link.rank).to eq 1
         expect(response).to redirect_to links_path
       end

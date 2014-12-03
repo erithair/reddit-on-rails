@@ -8,11 +8,17 @@
 #  link_id    :integer
 #  created_at :datetime
 #  updated_at :datetime
+#  rank       :integer          default(0), not null
+#
+# Indexes
+#
+#  index_comments_on_link_id  (link_id)
+#  index_comments_on_user_id  (user_id)
 #
 
 class Comment < ActiveRecord::Base
   scope :latest,  -> { order(created_at: :desc) }
-  scope :rank,    -> { joins(:votes).group('comments.id').order('SUM(votes.up) DESC') }
+  scope :rank,    -> { order(rank: :desc) }
 
   belongs_to :user, counter_cache: true
   belongs_to :link, dependent: :destroy, counter_cache: true
@@ -24,9 +30,5 @@ class Comment < ActiveRecord::Base
 
   def self.order_by(order)
     [:latest, :rank].include?(order) ? send(order) : send(:latest)
-  end
-
-  def rank
-    votes.sum(:up)
   end
 end

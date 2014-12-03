@@ -2,7 +2,7 @@
 
 <div class="container new-link-form">
   <%= form_for @link, url: links_path, html: { class: 'link-form' } do |f| %>
-
+    <%= render 'shared/errors', object: f.object %>
     <h3>New link</h3>
     <%= render 'form_fields', f: f %>
 

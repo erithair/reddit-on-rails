@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def collapse_comments
+    @collapse_comments = true
+  end
+
   def set_order
     # avoid invalid info
     @order = {

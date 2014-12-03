@@ -10,6 +10,12 @@
 #  votable_id   :integer
 #  votable_type :string(255)
 #
+# Indexes
+#
+#  index_votes_on_user_id                                  (user_id)
+#  index_votes_on_user_id_and_votable_id_and_votable_type  (user_id,votable_id,votable_type) UNIQUE
+#  index_votes_on_votable_id_and_votable_type              (votable_id,votable_type)
+#
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
 

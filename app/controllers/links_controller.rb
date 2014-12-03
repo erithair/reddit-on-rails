@@ -1,7 +1,8 @@
 class LinksController < ApplicationController
   before_action :set_link,          only: [:show, :edit, :update, :destroy, :vote]
-  before_action :set_comment_obj,   only: :show
+  before_action :set_comment_obj,   only: [:show]
   before_action :set_order,         only: [:show, :index]
+  before_action :collapse_comments, only: [:index]
   before_action :requires_login,    only: [:new, :create, :edit, :update, :destroy, :vote]
   before_action :user_check,        only: [:edit, :update, :destroy]
 
@@ -24,7 +25,7 @@ class LinksController < ApplicationController
   end
 
   def index
-    @links = Link.order_by(@order).includes(:user).paginate(page: params[:page])
+    @links = Link.order_by(@order).includes(:user, :comments).paginate(page: params[:page])
   end
 
   def edit

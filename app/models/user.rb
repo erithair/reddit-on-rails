@@ -17,6 +17,10 @@
 #  links_count       :integer          default(0), not null
 #  comments_count    :integer          default(0), not null
 #
+# Indexes
+#
+#  index_users_on_email  (email) UNIQUE
+#
 
 class User < ActiveRecord::Base
 
@@ -46,8 +50,9 @@ class User < ActiveRecord::Base
     vote.save
   end
 
-  def comment(link, params)
-    comment = comments.build(params.merge(link: link))
+  def comment(link, comment)
+    comment.link = link
+    comment.user = self
     comment.save
   end
 

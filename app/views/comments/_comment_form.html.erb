@@ -1,0 +1,9 @@
+<div class="comment-form-container">
+  <%= form_for [link, @comment], url: link_comments_path(link) do |f| %>
+    <%= render 'shared/errors', object: f.object %>
+    <%= render 'comments/comment_fields', f: f %>
+    <%= f.button 'Comment',
+                 class: 'btn btn-primary',
+                 data: { disable_with: "<i class='fa fa-circle-o-notch fa-spin'></i> Processing..." } %>
+  <% end %>
+</div>

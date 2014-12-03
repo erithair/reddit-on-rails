@@ -17,6 +17,10 @@
 #  links_count       :integer          default(0), not null
 #  comments_count    :integer          default(0), not null
 #
+# Indexes
+#
+#  index_users_on_email  (email) UNIQUE
+#
 
 require 'rails_helper'
 
@@ -157,13 +161,13 @@ RSpec.describe User, :type => :model do
     context "comment" do
       it "can not make an empty comment" do
         expect {
-          @user.comment(@link, content: '')
+          @user.comment(@link, Comment.new(content: ''))
         }.to_not change(Comment, :count)
       end
 
       it "comment a link" do
         expect {
-          @user.comment(@link, content: 'foobar')
+          @user.comment(@link, Comment.new(content: 'hello.'))
         }.to change(Comment, :count).by(1)
       end
     end

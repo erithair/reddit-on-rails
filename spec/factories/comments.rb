@@ -8,6 +8,12 @@
 #  link_id    :integer
 #  created_at :datetime
 #  updated_at :datetime
+#  rank       :integer          default(0), not null
+#
+# Indexes
+#
+#  index_comments_on_link_id  (link_id)
+#  index_comments_on_user_id  (user_id)
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

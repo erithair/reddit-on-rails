@@ -50,6 +50,7 @@ RSpec.describe CommentsController, :type => :controller do
         expect {
           post :vote, id: @comment, link_id: @comment.link, up: '1'
         }.to change(Vote, :count).by(1)
+        @comment.reload
         expect(@comment.rank).to eq 1
         expect(response).to redirect_to @comment.link
       end

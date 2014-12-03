@@ -5,7 +5,8 @@ class CommentsController < ApplicationController
   before_action :user_check,       only: :destroy
 
   def create
-    if current_user.comment(@link, comment_params)
+    @comment = Comment.new(comment_params)
+    if current_user.comment(@link, @comment)
       flash[:success] = "Comment success"
       redirect_to @link
     else
@@ -14,7 +15,7 @@ class CommentsController < ApplicationController
   end
 
   def index
-    redirect_to link_path(@link, order: params[:order])
+    redirect_to link_url(@link, order: params[:order])
   end
 
   def destroy

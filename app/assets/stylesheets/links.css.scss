@@ -6,12 +6,16 @@
 
 ul.link-list {
   list-style: none;
-  padding: 0;
+  padding-left: 0;
+
+  .collapse, .collapsing {
+    padding-left: 50px;
+  }
 }
 
 .link-row {
   max-height: 80px;
-  margin: 10px auto;
+  margin-top: 15px;
 
   .image {
     display: inline-block;

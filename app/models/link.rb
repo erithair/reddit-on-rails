@@ -13,7 +13,7 @@
 
 class Link < ActiveRecord::Base
   scope :latest,  -> { order(created_at: :desc) }
-  scope :rank,    -> { joins(:votes).group('links.id').order('SUM(votes.up) DESC') }
+  scope :rank,    -> { order(rank: :desc) }
   scope :hot,     -> { order(comments_count: :desc) }
 
   belongs_to :user, counter_cache: true
@@ -29,9 +29,5 @@ class Link < ActiveRecord::Base
 
   def self.order_by(order)
     [:latest, :rank, :hot].include?(order) ? send(order) : send(:latest)
-  end
-
-  def rank
-    votes.sum(:up)
   end
 end

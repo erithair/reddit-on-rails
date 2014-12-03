@@ -32,6 +32,7 @@ feature 'User' do
     visit root_path
     click_link "vote-up-link-#{link.id}"
     expect(page).to have_content 'vote success'
+    link.reload
     expect(link.rank).to eq 1
   end
 

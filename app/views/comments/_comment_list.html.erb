@@ -1,22 +1,3 @@
-<div class="comment-form-container">
-  <%= form_for [@link, @comment]  do |f| %>
-    <%= render 'comments/comment_fields', f: f %>
-    <%= f.button 'Comment',
-                 class: 'btn btn-primary',
-                 data: { disable_with: "<i class='fa fa-circle-o-notch fa-spin'></i> Processing..." } %>
-  <% end %>
-</div>
-
-<ul class="comment-list">
-  <li>
-    <div class="order-nav-bar">
-      <ul class="list-inline">
-        <li class="<%= if_link_active(:latest, @order) %>"><%= link_to 'latest', link_path(@link, order: 'latest') %></li>
-        <li class="<%= if_link_active(:rank, @order) %>"><%= link_to 'high votes', link_path(@link, order: 'rank' ) %></li>
-      </ul>
-    </div>
-  </li>
-  <% comments.each do |comment| %>
-    <li><%= render 'comments/comment_info', link: @link, comment: comment %></li>
-  <% end %>
-</ul>
+<% comments.each do |comment| %>
+  <li><%= render 'comments/comment_info', link: link, comment: comment %></li>
+<% end %>
