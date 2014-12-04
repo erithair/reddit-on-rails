@@ -9,12 +9,13 @@ module ApplicationHelper
   end
 
   def if_voted(options = {})
+    user = options[:user] || current_user
     link = options[:link]
     comment = options[:comment]
     up = options[:up]
     type = link ? 'Link' : 'Comment'
 
-    if current_user && vote = current_user.votes.find_by(votable_id: link || comment, votable_type: type)
+    if user && vote = user.votes.find_by(votable_id: link || comment, votable_type: type)
       if vote.up == up
         up == 1 ? 'voted-up voted-disable' : 'voted-down voted-disable'
       else

@@ -1,15 +1,15 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the SearchHelper. For example:
-#
-# describe SearchHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe SearchHelper, :type => :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#parse_search_param" do
+    it "regular search" do
+      search_info = parse_search_param('foo bar')
+      expect(search_info).to eq ['foo bar', :latest]
+    end
+
+    it "search with specific order" do
+      search_info = parse_search_param('foo bar&:order')
+      expect(search_info).to eq ['foo bar', :order]
+    end
+  end
 end

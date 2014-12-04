@@ -53,9 +53,9 @@
           <i class="fa fa-comments-o"></i> <%= pluralize(link.comments_count, 'Comment') %>
           <% end %>
         <% else %>
-          <%= link_to link, class: 'link-comment' do %>
+          <div class="link-comment">
             <i class="fa fa-comments-o"></i> <%= pluralize(link.comments_count, 'Comment') %>
-          <% end %>
+          </div>
         <% end %>
       </li>
     </ul>
