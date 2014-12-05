@@ -15,7 +15,7 @@ module ApplicationHelper
     up = options[:up]
     type = link ? 'Link' : 'Comment'
 
-    if user && vote = user.votes.find_by(votable_id: link || comment, votable_type: type)
+    if user && vote = Vote.find_by(user_id: user, votable_id: link || comment, votable_type: type)
       if vote.up == up
         up == 1 ? 'voted-up voted-disable' : 'voted-down voted-disable'
       else
