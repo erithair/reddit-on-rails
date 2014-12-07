@@ -25,7 +25,7 @@ class LinksController < ApplicationController
   end
 
   def index
-    @links = Link.order_by(@order).includes(:user, :comments).paginate(page: params[:page])
+    @links = Link.order_by(@order).includes(:user, comments: :user).paginate(page: params[:page])
   end
 
   def edit
