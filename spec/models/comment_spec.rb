@@ -26,7 +26,7 @@ RSpec.describe Comment, :type => :model do
     expect(build(:comment)).to be_valid
   end
 
-  context "content" do
+  describe "content" do
     it "can not be empty" do
       expect(build(:comment, content: '')).to_not be_valid
     end
@@ -49,7 +49,7 @@ RSpec.describe Comment, :type => :model do
     expect(comment).to_not be_valid
   end
 
-  context "order" do
+  describe "order" do
     before :each do
       @comment1 = create(:comment)
       @comment2 = create(:comment)
@@ -57,15 +57,14 @@ RSpec.describe Comment, :type => :model do
     end
 
     it "sorted by created time DESC" do
-      expect(Comment.order_by(:latest).first).to eq @comment3
+      expect(Comment.order_by(:latest).to_a).to eq [@comment3, @comment2, @comment1]
     end
 
     it "sorted by rank(votes count)" do
       create(:comment_vote, votable: @comment1, up: -1)
       create(:comment_vote, votable: @comment2, up: 1)
 
-      expect(Comment.order_by(:rank).first).to eq @comment2
-      expect(Comment.order_by(:rank).last).to eq @comment1
+      expect(Comment.order_by(:rank).to_a).to eq [@comment2, @comment3, @comment1]
     end
   end
 end

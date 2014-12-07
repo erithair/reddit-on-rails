@@ -25,7 +25,7 @@ RSpec.describe Link, :type => :model do
     expect(build(:link)).to be_valid
   end
 
-  context "url" do
+  describe "url" do
     it "can not be empty" do
       expect(build(:link, url: '')).to_not be_valid
     end
@@ -41,20 +41,28 @@ RSpec.describe Link, :type => :model do
       end
     end
 
-    it "can have valid format" do
-      valid_links = [
-        'http://www.foobar.com/valid_url',
-        'http://www.foo-bar.com/valid_url',
-        'https://www.foo-bar.com/valid_url',
-        'https://www.foobar.com/valid_url'
-      ]
-      valid_links.each do |url|
-        expect(build(:link, url: url)).to be_valid
+    context "http url" do
+      it "accepts normal format" do
+        expect(build(:link, url: 'http://www.foobar.com/valid_url'))
+      end
+
+      it "accepts dash symbol" do
+        expect(build(:link, url: 'http://www.foo-bar.com/valid_url'))
+      end
+    end
+
+    context "https url" do
+      it "accepts normal format" do
+        expect(build(:link, url: 'https://www.foobar.com/valid_url'))
+      end
+
+      it "accepts dash symbol" do
+        expect(build(:link, url: 'https://www.foo-bar.com/valid_url'))
       end
     end
   end
 
-  context "title" do
+  describe "title" do
     it "can not be empty" do
       expect(build(:link, title: '')).to_not be_valid
     end
@@ -70,7 +78,7 @@ RSpec.describe Link, :type => :model do
     expect(link).to_not be_valid
   end
 
-  context "order" do
+  describe "order" do
     before :each do
       @link1 = create(:link)
       @link2 = create(:link)
@@ -78,27 +86,25 @@ RSpec.describe Link, :type => :model do
     end
 
     it "sorted by created time DESC" do
-      expect(Link.order_by(:latest).first).to eq @link3
+      expect(Link.order_by(:latest).to_a).to eq [@link3, @link2, @link1]
     end
 
     it "sorted by rank(votes count)" do
       create(:link_vote, votable: @link1, up: -1)
       create(:link_vote, votable: @link2, up: 1)
 
-      expect(Link.order_by(:rank).first).to eq @link2
-      expect(Link.order_by(:rank).last).to eq @link1
+      expect(Link.order_by(:rank).to_a).to eq [@link2, @link3, @link1]
     end
 
-    it "sorted by hot(comments count)" do
+    it "sorted by popularity(comments count)" do
       create(:comment, link: @link1)
       2.times { create(:comment, link: @link2) }
 
-      expect(Link.order_by(:hot).first).to eq @link2
-      expect(Link.order_by(:hot).last).to eq @link3
+      expect(Link.order_by(:hot).to_a).to eq [@link2, @link1, @link3]
     end
   end
 
-  context "counter" do
+  describe "counter" do
     before :each do
       @link = create(:link)
     end

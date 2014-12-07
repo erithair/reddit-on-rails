@@ -21,23 +21,23 @@ RSpec.describe LinksController, :type => :controller do
 
         it "assigns comments to @comments" do
           get :show, id: @link
-          expect(assigns(:comments)).to match_array([@comment1, @comment2])
+          expect(assigns(:comments)).to match_array [@comment1, @comment2]
         end
 
         it "sort by created time desc when not specify the order" do
           get :show, id: @link
-          expect(assigns(:comments).first).to eq @comment2
+          expect(assigns(:comments).to_a).to eq [@comment2, @comment1]
         end
 
         it "sort by created time desc when specify order: latest" do
           get :show, id: @link, order: 'latest'
-          expect(assigns(:comments).first).to eq @comment2
+          expect(assigns(:comments).to_a).to eq [@comment2, @comment1]
         end
 
         it "sort by votes when specify order: rank" do
           create(:comment_vote, votable: @comment1, up: 1)
           get :show, id: @link, order: 'rank'
-          expect(assigns(:comments).first).to eq @comment1
+          expect(assigns(:comments).to_a).to eq [@comment1, @comment2]
         end
       end
     end
