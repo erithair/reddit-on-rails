@@ -21,13 +21,13 @@
           <div class="order-nav-bar">
             <ul class="list-inline">
               <li class="<%= if_link_active(:latest, @order) %>">
-                <%= link_to 'latest', links_user_path(@user, order: 'latest') %>
+                <%= link_to 'latest', links_user_path(@user, order: 'latest'), data: { disable_with: "<i class='fa fa-circle-o-notch fa-spin'></i> latest" } %>
               </li>
               <li class="<%= if_link_active(:rank, @order) %>">
-                <%= link_to 'high votes', links_user_path(@user, order: 'rank' ) %>
+                <%= link_to 'high votes', links_user_path(@user, order: 'rank' ), data: { disable_with: "<i class='fa fa-circle-o-notch fa-spin'></i> high votes" } %>
               </li>
               <li class="<%= if_link_active(:hot, @order) %>">
-                <%= link_to 'most comments', links_user_path(@user, order: 'hot' ) %>
+                <%= link_to 'most comments', links_user_path(@user, order: 'hot' ), data: { disable_with: "<i class='fa fa-circle-o-notch fa-spin'></i> most comments" } %>
               </li>
             </ul>
           </div>
@@ -38,10 +38,10 @@
             <div class="order-nav-bar">
               <ul class="list-inline">
                 <li class="<%= if_link_active(:latest, @order) %>">
-                  <%= link_to 'latest', comments_user_path(@user, order: 'latest') %>
+                  <%= link_to 'latest', comments_user_path(@user, order: 'latest'), data: { disable_with: "<i class='fa fa-circle-o-notch fa-spin'></i> latest" } %>
                 </li>
                 <li class="<%= if_link_active(:rank, @order) %>">
-                  <%= link_to 'high votes', comments_user_path(@user, order: 'rank' ) %>
+                  <%= link_to 'high votes', comments_user_path(@user, order: 'rank' ), data: { disable_with: "<i class='fa fa-circle-o-notch fa-spin'></i> high votes" } %>
                 </li>
               </ul>
             </div>
