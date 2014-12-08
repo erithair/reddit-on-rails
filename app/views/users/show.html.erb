@@ -31,7 +31,9 @@
               </li>
             </ul>
           </div>
-          <%= render 'links/link_list' %>
+          <ul class="link-list">
+            <%= render partial: 'links/link', collection: @links %>
+          </ul>
         <% elsif @comments %>
             <div class="order-nav-bar">
               <ul class="list-inline">

@@ -67,7 +67,7 @@ class UsersController < ApplicationController
   end
 
   def set_links
-    @links = @user.links.order_by(@order).includes(:user)
+    @links = @user.links.order_by(@order).includes(:user, comments: :user)
   end
 
   def set_comments

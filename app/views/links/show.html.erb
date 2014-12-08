@@ -2,13 +2,15 @@
 
 <div class="container">
   <div class="link-content"></div>
-  <%= render 'links/link_info', link: @link %>
-  <%= render 'comments/comment_form', link: @link %>
+  <ul class="list-unstyled">
+    <%= render 'links/link', link: @link %>
+    <%= render 'comments/comment_form', link: @link %>
+  </ul>
 
   <ul class="comment-list">
     <li>
       <%= render 'comments/comment_order_navbar', link: @link %>
     </li>
-    <%= render 'comments/comment_list', link: @link, comments: @comments %>
+    <%= render partial: 'comments/comment', collection: @comments, locals: { link: @link } %>
   </ul>
 </div>

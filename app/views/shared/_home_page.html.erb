@@ -25,7 +25,9 @@
   </nav>
 
   <div id="links-container" class="container">
-    <%= render 'links/link_list' %>
+    <ul class="link-list">
+      <%= render partial: 'links/link', collection: @links %>
+    </ul>
     <%= will_paginate @links %>
   </div>
 </div> <!-- /container -->
