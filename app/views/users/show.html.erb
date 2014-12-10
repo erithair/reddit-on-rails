@@ -45,11 +45,7 @@
                 </li>
               </ul>
             </div>
-          <% @comments.each do |comment| %>
-            <% link = comment.link %>
-            <li class="link-row"><%= link_to link.title, link %></li>
-            <li class="comment-row"><%= render 'comments/comment_info', link: link, comment: comment %></li>
-          <% end %>
+            <%= render partial: 'comments/comment', collection: @comments %>
         <% else %>
           <!-- extend in the futuere -->
         <% end %>

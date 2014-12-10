@@ -2,7 +2,10 @@ class LinksController < ApplicationController
   before_action :set_link,          only: [:show, :edit, :update, :destroy, :vote]
   before_action :set_comment_obj,   only: [:show]
   before_action :set_order,         only: [:show, :index]
-  before_action :collapse_comments, only: [:index]
+
+  # this will slow down the speed(more partial to render)
+  # before_action :collapse_comments, only: [:index]
+
   before_action :requires_login,    only: [:new, :create, :edit, :update, :destroy, :vote]
   before_action :user_check,        only: [:edit, :update, :destroy]
 

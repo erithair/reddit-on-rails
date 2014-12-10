@@ -31,11 +31,15 @@
       <ul>
         <li><%= link_to link.title, link, class: 'link-title' %>
           <% if link.user == current_user %>
-            <%= link_to edit_link_path(link) do %>
+            <%= link_to edit_link_path(link), title: 'edit' do %>
               <i class="fa fa-edit"></i>
             <% end %>
 
-            <%= link_to link_path(link), method: :delete, class: 'delete-link', data: { confirm: "Are you sure delete it?" } do %>
+            <%= link_to link_path(link),
+                        method: :delete,
+                        class: 'delete-link',
+                        title: 'delete it',
+                        data: { confirm: "Are you sure delete it?" } do %>
               <i class="fa fa-trash"></i>
             <% end %>
           <% end %>
@@ -54,14 +58,16 @@
             <i class="fa fa-comments-o"></i> <%= pluralize(link.comments_count, 'Comment') %>
             <% end %>
           <% else %>
-            <div class="link-comment">
-              <i class="fa fa-comments-o"></i> <%= pluralize(link.comments_count, 'Comment') %>
-            </div>
+            <%= link_to link, class: 'link-comment' do %>
+            <i class="fa fa-comments-o"></i> <%= pluralize(link.comments_count, 'Comment') %>
+            <% end %>
           <% end %>
         </li>
       </ul>
     </div>
   </div>
+
+  <!-- this will slow down the speed -->
   <% if @collapse_comments %>
     <div id="comments-of-link-<%= link.id %>" class="collapse">
       <ul class="comment-list">

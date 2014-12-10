@@ -32,10 +32,23 @@
             commented
             <%= timeago_tag comment.created_at, nojs: true, limit: 5.days.ago %>
           </span>
+          <% if @show_source_link %>
+            <span class="source-link">
+              <%= link_to comment.link, title: "link: #{comment.link.title}" do %>
+                <i class="fa fa-external-link"></i>
+              <% end %>
+            </span>
+          <% end %>
           <% if comment.user == current_user %>
-           <%= link_to link_comment_path(@link || comment.link, comment), class: 'delete-link', method: :delete, data: { confirm: "Are you sure?" } do %>
+           <span class="delete-link">
+             <%= link_to link_comment_path(@link || comment.link, comment),
+                       class: 'delete-link',
+                       method: :delete,
+                       title: 'delete it',
+                       data: { confirm: "Are you sure?" } do %>
              <i class="fa fa-trash"></i>
            <% end %>
+           </span>
           <% end %>
         </li>
         <li class="content">

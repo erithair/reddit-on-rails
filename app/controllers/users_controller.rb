@@ -1,12 +1,16 @@
 class UsersController < ApplicationController
   include UsersHelper
 
-  before_action :set_user,             only: [:show, :edit, :update, :destroy, :links, :comments]
-  before_action :set_order,            only: [:show, :links, :comments]
-  before_action :set_links,            only: [:show, :links]
-  before_action :set_comments,         only: [:comments]
-  before_action :collapse_comments,    only: [:show, :links, :comments]
-  before_action :disable_email_field,  only: [:edit, :update]
+  before_action :set_user,                     only: [:show, :edit, :update, :destroy, :links, :comments]
+  before_action :set_order,                    only: [:show, :links, :comments]
+  before_action :set_links,                    only: [:show, :links]
+  before_action :set_comments,                 only: [:comments]
+  before_action :show_source_link_of_comment,  only: [:comments]
+
+  # this will slow down the speed(more partial to render)
+  # before_action :collapse_comments,            only: [:show, :links, :comments]
+
+  before_action :disable_email_field,          only: [:edit, :update]
 
   def new
     @user = User.new
@@ -67,11 +71,15 @@ class UsersController < ApplicationController
   end
 
   def set_links
-    @links = @user.links.order_by(@order).includes(:user, comments: :user)
+    @links = @user.links.order_by(@order).includes(comments: :user)
   end
 
   def set_comments
-    @comments = @user.comments.order_by(@order).includes(:user)
+    @comments = @user.comments.order_by(@order).includes(:link)
+  end
+
+  def show_source_link_of_comment
+    @show_source_link = true
   end
 
   def user_params
