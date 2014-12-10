@@ -20,10 +20,16 @@ RSpec.describe UsersController, :type => :controller do
   end
 
   describe "GET #show" do
+    before :each do
+      @user = create(:user)
+      get :show, id: @user
+    end
+
     it "assigns a User to @user" do
-      user = create(:user)
-      get :show, id: user
-      expect(assigns(:user)).to eq user
+      expect(assigns(:user)).to eq @user
+    end
+
+    it "renders show template" do
       expect(response).to render_template :show
     end
   end
@@ -88,6 +94,11 @@ RSpec.describe UsersController, :type => :controller do
       expect(assigns(:links)).to match_array([@link1, @link2])
     end
 
+    it "renders show template" do
+      get :links, id: @user
+      expect(response).to render_template :show
+    end
+
     it "sorted by created time desc when specify order: latest" do
       get :links, id: @user, order: 'latest'
       expect(assigns(:links).first).to eq @link2
@@ -118,6 +129,11 @@ RSpec.describe UsersController, :type => :controller do
     it "assigns comments to @comments" do
       get :comments, id: @user
       expect(assigns(:comments)).to match_array([@comment1, @comment2])
+    end
+
+    it "renders show template" do
+      get :comments, id: @user
+      expect(response).to render_template :show
     end
 
     it "sort by created time desc when not specify the order" do
