@@ -5,7 +5,7 @@
         <li>
           <%= link_to vote_link_path(link, up: '1'),
                       id: "vote-up-link-#{link.id}",
-                      class: if_voted(link: link, up: 1),
+                      class: vote_link_class(link: link, up: 1),
                       method: :post,
                       data: { confirm: 'Are you sure?' } do %>
             <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
@@ -15,7 +15,7 @@
         <li>
           <%= link_to vote_link_path(link, up: '-1'),
                       id: "vote-down-link-#{link.id}",
-                      class: if_voted(link: link, up: -1),
+                      class: vote_link_class(link: link, up: -1),
                       method: :post,
                       data: { confirm: 'Are you sure?' } do %>
             <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>

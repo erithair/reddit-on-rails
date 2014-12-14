@@ -8,17 +8,16 @@ module ApplicationHelper
     actual == expect ? 'active' : ''
   end
 
-  def if_voted(options = {})
+  def vote_link_class(options = {})
+    # convenience for development
     user = options[:user] || current_user
-    return '' unless user # only logged in user can see if he/she've voted or not
 
     link = options[:link]
     comment = options[:comment]
     up = options[:up]
-    type = link ? 'Link' : 'Comment'
 
-    if vote = Vote.find_by(user_id: user, votable_id: link || comment, votable_type: type)
-      if vote.up == up
+    if user && user_vote_kind = user.vote_kind(link || comment)
+      if user_vote_kind == up
         up == 1 ? 'voted-up voted-disable' : 'voted-down voted-disable'
       else
         'voted-disable'

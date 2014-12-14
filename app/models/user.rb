@@ -43,10 +43,12 @@ class User < ActiveRecord::Base
 
   # user action methods
 
-  def vote(options)
+  def vote(object, up)
     # treat invalid param as an up vote.
-    options[:up] = 1 unless options[:up] == -1
-    vote = votes.build(options)
+    up = up.to_i
+    up = 1 unless up == -1
+
+    vote = votes.build(votable_id: object.id, votable_type: object.class.to_s, up: up)
     vote.save
   end
 
@@ -54,6 +56,12 @@ class User < ActiveRecord::Base
     comment.link = link
     comment.user = self
     comment.save
+  end
+
+  def vote_kind(object)
+    if vote = Vote.find_by(user_id: self, votable_id: object, votable_type: object.class.to_s)
+      vote.up
+    end
   end
 
 

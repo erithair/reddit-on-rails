@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
   end
 
   def vote
-    if current_user.vote(votable_id: @comment.id, votable_type: 'Comment', up: params[:up])
+    if current_user.vote(@comment, params[:up])
       flash[:success] = 'vote success'
       redirect_to @link
     else

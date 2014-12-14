@@ -50,7 +50,7 @@ class LinksController < ApplicationController
   end
 
   def vote
-    if current_user.vote(votable_id: @link.id, votable_type: 'Link', up: params[:up])
+    if current_user.vote(@link, params[:up])
       flash[:success] = 'vote success'
       redirect_to links_url
     else

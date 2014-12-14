@@ -32,7 +32,7 @@ RSpec.describe User, :type => :model do
     expect(build(:user)).to be_valid
   end
 
-  context "user name" do
+  describe "user name" do
     it "can not be empty" do
       expect(build(:user, username: '')).to_not be_valid
     end
@@ -46,7 +46,7 @@ RSpec.describe User, :type => :model do
     end
   end
 
-  context "email" do
+  describe "email" do
     it "can not be empty" do
       expect(build(:user, email: '')).to_not be_valid
     end
@@ -103,7 +103,7 @@ RSpec.describe User, :type => :model do
     end
   end
 
-  context "password" do
+  describe "password" do
     it "can not be empty" do
       expect(build(:user, password: '')).to_not be_valid
     end
@@ -128,24 +128,24 @@ RSpec.describe User, :type => :model do
       @link = create(:link)
     end
 
-    context "vote" do
+    describe "#vote" do
       it "vote for a link" do
         expect {
-          @user.vote(votable: @link, votable_type: 'Link', up: '1')
+          @user.vote(@link, '1')
         }.to change(Vote, :count).by(1)
       end
 
       it "can not vote for a link more than once" do
         create(:link_vote, user: @user, votable: @link)
         expect {
-          @user.vote(votable: @link, votable_type: 'Link', up: '1')
+          @user.vote(@link, '1')
         }.to_not change(Vote, :count)
       end
 
       it "vote for a comment" do
         comment = create(:comment)
         expect {
-          @user.vote(votable: comment, votable_type: 'Comment', up: '1')
+          @user.vote(comment, '1')
         }.to change(Vote, :count).by(1)
       end
 
@@ -153,12 +153,12 @@ RSpec.describe User, :type => :model do
         comment = create(:comment)
         create(:comment_vote, user: @user, votable: comment)
         expect {
-          @user.vote(votable: comment, votable_type: 'Comment', up: '1')
+          @user.vote(comment, '1')
         }.to_not change(Vote, :count)
       end
     end
 
-    context "comment" do
+    describe "#comment" do
       it "can not make an empty comment" do
         expect {
           @user.comment(@link, Comment.new(content: ''))
@@ -172,7 +172,7 @@ RSpec.describe User, :type => :model do
       end
     end
 
-    context 'counter' do
+    describe '#counter' do
       it "returns links count" do
         3.times { create(:link, user: @user) }
         @user.reload
@@ -183,6 +183,48 @@ RSpec.describe User, :type => :model do
         3.times { create(:comment, user: @user) }
         @user.reload
         expect(@user.comments_count).to eq 3
+      end
+    end
+
+    describe "#vote_kind" do
+      shared_examples_for "users' votes kind" do
+        it "returns nil if user not vote" do
+          expect(@user.vote_kind(@no_vote_obj)).to be_nil
+        end
+
+        it "returns :up if user made an up-vote" do
+          expect(@user.vote_kind(@up_vote_obj)).to eq 1
+        end
+
+        it "returns :down if user made a down-vote" do
+          expect(@user.vote_kind(@down_vote_obj)).to eq -1
+        end
+      end
+
+      context 'vote of link' do
+        before :each do
+          @no_vote_obj = create(:link)
+          @up_vote_obj = create(:link)
+          @down_vote_obj = create(:link)
+
+          create(:link_vote, votable: @up_vote_obj, up: 1, user: @user)
+          create(:link_vote, votable: @down_vote_obj, up: -1, user: @user)
+        end
+
+        it_behaves_like "users' votes kind"
+      end
+
+      context 'vote of comment' do
+        before :each do
+          @no_vote_obj = create(:comment)
+          @up_vote_obj = create(:comment)
+          @down_vote_obj = create(:comment)
+
+          create(:comment_vote, votable: @up_vote_obj, up: 1, user: @user)
+          create(:comment_vote, votable: @down_vote_obj, up: -1, user: @user)
+        end
+
+        it_behaves_like "users' votes kind"
       end
     end
   end

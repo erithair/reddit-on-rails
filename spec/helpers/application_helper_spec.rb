@@ -25,7 +25,7 @@ RSpec.describe ApplicationHelper, :type => :helper do
     end
   end
 
-  describe "#if_voted()" do
+  describe "#vote_link_class()" do
     before :each do
       @user = create(:user)
       @link = create(:link)
@@ -36,28 +36,27 @@ RSpec.describe ApplicationHelper, :type => :helper do
       create(:link_vote, user: @user, votable: @link, up: 1)
       create(:comment_vote, user: @user, votable: @comment, up: 1)
 
-      expect(if_voted(user: @user, link: @link, up: 1)).to eq 'voted-up voted-disable'
-      expect(if_voted(user: @user, link: @link, up: -1)).to eq 'voted-disable'
-      expect(if_voted(user: @user, comment: @comment, up: 1)).to eq 'voted-up voted-disable'
-      expect(if_voted(user: @user, comment: @comment, up: -1)).to eq 'voted-disable'
+      expect(vote_link_class(user: @user, link: @link, up: 1)).to eq 'voted-up voted-disable'
+      expect(vote_link_class(user: @user, link: @link, up: -1)).to eq 'voted-disable'
+      expect(vote_link_class(user: @user, comment: @comment, up: 1)).to eq 'voted-up voted-disable'
+      expect(vote_link_class(user: @user, comment: @comment, up: -1)).to eq 'voted-disable'
     end
 
     it "user made down votes" do
       create(:link_vote, user: @user, votable: @link, up: -1)
       create(:comment_vote, user: @user, votable: @comment, up: -1)
 
-      expect(if_voted(user: @user, link: @link, up: 1)).to eq 'voted-disable'
-      expect(if_voted(user: @user, link: @link, up: -1)).to eq 'voted-down voted-disable'
-      expect(if_voted(user: @user, comment: @comment, up: 1)).to eq 'voted-disable'
-      expect(if_voted(user: @user, comment: @comment, up: -1)).to eq 'voted-down voted-disable'
+      expect(vote_link_class(user: @user, link: @link, up: 1)).to eq 'voted-disable'
+      expect(vote_link_class(user: @user, link: @link, up: -1)).to eq 'voted-down voted-disable'
+      expect(vote_link_class(user: @user, comment: @comment, up: 1)).to eq 'voted-disable'
+      expect(vote_link_class(user: @user, comment: @comment, up: -1)).to eq 'voted-down voted-disable'
     end
 
     it "user didn't make any vote" do
-      expect(if_voted(user: @user, link: @link, up: 1)).to eq ''
-      expect(if_voted(user: @user, link: @link, up: -1)).to eq ''
-      expect(if_voted(user: @user, comment: @comment, up: 1)).to eq ''
-      expect(if_voted(user: @user, comment: @comment, up: -1)).to eq ''
+      expect(vote_link_class(user: @user, link: @link, up: 1)).to eq ''
+      expect(vote_link_class(user: @user, link: @link, up: -1)).to eq ''
+      expect(vote_link_class(user: @user, comment: @comment, up: 1)).to eq ''
+      expect(vote_link_class(user: @user, comment: @comment, up: -1)).to eq ''
     end
   end
 end
-
