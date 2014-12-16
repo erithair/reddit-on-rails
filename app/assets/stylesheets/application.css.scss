@@ -11,10 +11,12 @@
  * file per style scope.
  *
  *= require font-awesome
+ *= require nprogress
+ *= require nprogress-bootstrap
  *= require_tree .
  *= require_self
  */
 
-@import 'bootstrap';
+@import "bootstrap";
 @import "font-awesome-sprockets";
 @import "font-awesome";

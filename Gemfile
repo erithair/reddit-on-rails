@@ -34,6 +34,7 @@ gem 'will_paginate', '~> 3.0'
 gem 'textacular', '~> 3.0'
 gem 'font-awesome-sass'
 gem 'annotate', '~> 2.6.5'
+gem 'nprogress-rails'
 
 group :development, :test do
   gem "rspec-rails", "~> 3.1.0"

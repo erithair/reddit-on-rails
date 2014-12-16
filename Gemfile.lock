@@ -113,6 +113,7 @@ GEM
     multi_json (1.10.1)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
+    nprogress-rails (0.1.6.3)
     pg (0.17.1)
     polyglot (0.3.5)
     pry (0.10.1)
@@ -241,6 +242,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   launchy (~> 2.4.2)
+  nprogress-rails
   pg
   rails (= 4.1.5)
   rails-timeago (~> 2.0)
