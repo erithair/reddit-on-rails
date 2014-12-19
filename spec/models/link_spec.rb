@@ -19,63 +19,22 @@
 require 'rails_helper'
 
 RSpec.describe Link, :type => :model do
+  # title
+  it { should validate_presence_of :title }
+  it { should ensure_length_of(:title).is_at_most(200) }
+
+  # url
+  it { should validate_presence_of :url }
+  it { should allow_value('http://www.foo-bar.com/valid_url').for(:url) }
+  it { should allow_value('https://www.foo-bar.com/valid_url').for(:url) }
+  it { should_not allow_value('asdaw_dwa&12a::daw').for(:url) }
+
+  # Association
   it { should belong_to :user }
+  it { should validate_presence_of :user }
 
   it "has a valid factory" do
     expect(build(:link)).to be_valid
-  end
-
-  describe "url" do
-    it "can not be empty" do
-      expect(build(:link, url: '')).to_not be_valid
-    end
-
-    it "can not have invalid format" do
-      invalid_links = [
-        'dwadwad',
-        'asdaw_dwa&12a::daw',
-        'www.foobar.com'
-      ]
-      invalid_links.each do |url|
-        expect(build(:link, url: url)).to_not be_valid
-      end
-    end
-
-    context "http url" do
-      it "accepts normal format" do
-        expect(build(:link, url: 'http://www.foobar.com/valid_url'))
-      end
-
-      it "accepts dash symbol" do
-        expect(build(:link, url: 'http://www.foo-bar.com/valid_url'))
-      end
-    end
-
-    context "https url" do
-      it "accepts normal format" do
-        expect(build(:link, url: 'https://www.foobar.com/valid_url'))
-      end
-
-      it "accepts dash symbol" do
-        expect(build(:link, url: 'https://www.foo-bar.com/valid_url'))
-      end
-    end
-  end
-
-  describe "title" do
-    it "can not be empty" do
-      expect(build(:link, title: '')).to_not be_valid
-    end
-
-    it "can not be longer than 200 characters" do
-      expect(build(:link, title: 'a' * 201)).to_not be_valid
-    end
-  end
-
-  it "must belong to a user" do
-    link = build(:link)
-    link.user = nil
-    expect(link).to_not be_valid
   end
 
   describe "order" do

@@ -20,32 +20,21 @@
 require 'rails_helper'
 
 RSpec.describe Vote, :type => :model do
+  # up
+  it { should validate_inclusion_of(:up).in_array([1, -1]) }
+
+  # Association
   it { should belong_to :user }
+  it { should validate_presence_of :user }
+  it { should belong_to :votable }
+  it { should validate_presence_of :votable }
 
-  it "has a valid factory" do
-    [:link_vote, :comment_vote].each do |vote_type|
-      expect(build(vote_type)).to be_valid
-    end
+  it "has a valid link_vote factory" do
+    expect(build(:link_vote)).to be_valid
   end
 
-  it "up attribute can not be nil" do
-    [:link_vote, :comment_vote].each do |vote_type|
-      expect(build(vote_type, up: nil)).to_not be_valid
-    end
-  end
-
-  it "must belong to a user" do
-    [:link_vote, :comment_vote].each do |vote_type|
-      vote = build(vote_type)
-      vote.user = nil
-      expect(vote).to_not be_valid
-    end
-  end
-
-  it "must belong to a link/comment" do
-    vote = build(:link_vote)
-    vote.votable = nil
-    expect(vote).to_not be_valid
+  it "has a valid comment_vote factory" do
+    expect(build(:comment_vote)).to be_valid
   end
 
   it "one user can't vote on same link more than once" do
