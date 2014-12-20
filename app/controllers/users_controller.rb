@@ -62,10 +62,6 @@ class UsersController < ApplicationController
     @disable_email_field = true
   end
 
-  def collapse_comments
-    @collapse_comments = true
-  end
-
   def set_user
     @user = User.find(params[:id])
   end
