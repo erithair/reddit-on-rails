@@ -68,11 +68,11 @@ class User < ActiveRecord::Base
   # email sending methods
 
   def send_activation_email
-    UserMailer.account_activation(self).deliver
+    UserMailer.account_activation(self).deliver_now
   end
 
   def send_password_reset_email
-    UserMailer.password_reset(self).deliver
+    UserMailer.password_reset(self).deliver_now
   end
 
 

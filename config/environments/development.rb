@@ -38,6 +38,5 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  # make better_errrors work over Vagrant
-  BetterErrors::Middleware.allow_ip! ENV['TRUSTED_IP'] if ENV['TRUSTED_IP']
+  config.web_console.whitelisted_ips += %w(10.0.2.2)
 end

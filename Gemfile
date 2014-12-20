@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.5'
+gem 'rails', '4.2.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
@@ -31,10 +31,11 @@ gem 'email_validator', '~> 1.4.0'
 gem "faker", '~> 1.4.3'
 gem 'rails-timeago', '~> 2.0'
 gem 'will_paginate', '~> 3.0'
-gem 'textacular', '~> 3.0'
+gem 'pg_search'
 gem 'font-awesome-sass'
 gem 'annotate', '~> 2.6.5'
 gem 'nprogress-rails'
+gem 'web-console', '~> 2.0'
 
 group :development, :test do
   gem "rspec-rails", "~> 3.1.0"
@@ -44,7 +45,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'better_errors'
   gem 'binding_of_caller'
 end
 

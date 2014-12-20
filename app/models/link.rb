@@ -12,6 +12,9 @@
 #
 
 class Link < ActiveRecord::Base
+  include PgSearch
+  pg_search_scope :search_by_title, against: :title
+
   scope :latest,  -> { order(created_at: :desc) }
   scope :rank,    -> { order(rank: :desc) }
   scope :hot,     -> { order(comments_count: :desc) }
