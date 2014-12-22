@@ -8,7 +8,7 @@ RSpec.describe SessionsHelper, :type => :helper do
     end
 
     it "returns right user when session is nil" do
-      expect(current_user).to eq @user
+      expect(current_user).to eql @user
       expect logged_in?
     end
 

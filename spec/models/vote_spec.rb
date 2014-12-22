@@ -60,7 +60,7 @@ RSpec.describe Vote, :type => :model do
     create(:link_vote, up: 1, votable: link, user: alice)
     create(:link_vote, up: 1, votable: link, user: bob)
     create(:link_vote, up: -1, votable: link, user: dave)
-    expect(link.rank).to eq 1
+    expect(link.rank).to eql 1
   end
 
   it "calculate the rank of comment" do
@@ -72,6 +72,6 @@ RSpec.describe Vote, :type => :model do
     create(:comment_vote, up: 1, votable: comment, user: alice)
     create(:comment_vote, up: 1, votable: comment, user: bob)
     create(:comment_vote, up: -1, votable: comment, user: dave)
-    expect(comment.rank).to eq 1
+    expect(comment.rank).to eql 1
   end
 end

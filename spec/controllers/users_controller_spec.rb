@@ -26,7 +26,7 @@ RSpec.describe UsersController, :type => :controller do
     end
 
     it "assigns a User to @user" do
-      expect(assigns(:user)).to eq @user
+      expect(assigns(:user)).to eql @user
     end
 
     it "renders show template" do
@@ -38,7 +38,7 @@ RSpec.describe UsersController, :type => :controller do
     it "assigns a User to @user" do
       user = create(:user)
       get :edit, id: user
-      expect(assigns(:user)).to eq user
+      expect(assigns(:user)).to eql user
       expect(response).to render_template :edit
     end
   end
@@ -55,7 +55,7 @@ RSpec.describe UsersController, :type => :controller do
           password: @user.password,
           password_confirmation: @user.password_confirmation)
         @user.reload
-        expect(@user.username).to eq 'New Name'
+        expect(@user.username).to eql 'New Name'
         expect(response).to redirect_to user_path(@user)
       end
     end
@@ -66,7 +66,7 @@ RSpec.describe UsersController, :type => :controller do
           password: @user.password,
           password_confirmation: @user.password_confirmation)
         @user.reload
-        expect(@user.username).to eq 'Old Name'
+        expect(@user.username).to eql 'Old Name'
         expect(response).to render_template :edit
       end
     end
@@ -101,21 +101,21 @@ RSpec.describe UsersController, :type => :controller do
 
     it "sorted by created time desc when specify order: latest" do
       get :links, id: @user, order: 'latest'
-      expect(assigns(:links).first).to eq @link2
+      expect(assigns(:links).first).to eql @link2
     end
 
     it "sorted by votes when specify order: rank" do
       create(:link_vote, votable: @link1, up: 1)
 
       get :links, id: @user, order: 'rank'
-      expect(assigns(:links).first).to eq @link1
+      expect(assigns(:links).first).to eql @link1
     end
 
     it "sorted by comments count when specify order: hot" do
       create(:comment, link: @link1)
 
       get :links, id: @user, order: 'hot'
-      expect(assigns(:links).first).to eq @link1
+      expect(assigns(:links).first).to eql @link1
     end
   end
 
@@ -138,19 +138,19 @@ RSpec.describe UsersController, :type => :controller do
 
     it "sort by created time desc when not specify the order" do
       get :comments, id: @user
-      expect(assigns(:comments).first).to eq @comment2
+      expect(assigns(:comments).first).to eql @comment2
     end
 
     it "sort by created time desc when specify order: latest" do
       get :comments, id: @user, order: 'latest'
-      expect(assigns(:comments).first).to eq @comment2
+      expect(assigns(:comments).first).to eql @comment2
     end
 
     it "sort by votes when specify order: rank" do
       create(:comment_vote, votable: @comment1, up: 1)
 
       get :comments, id: @user, order: 'rank'
-      expect(assigns(:comments).first).to eq @comment1
+      expect(assigns(:comments).first).to eql @comment1
     end
   end
 

@@ -45,21 +45,21 @@ RSpec.describe Link, :type => :model do
     end
 
     it "sorted by created time DESC" do
-      expect(Link.order_by(:latest).to_a).to eq [@link3, @link2, @link1]
+      expect(Link.order_by(:latest).to_a).to eql [@link3, @link2, @link1]
     end
 
     it "sorted by rank(votes count)" do
       create(:link_vote, votable: @link1, up: -1)
       create(:link_vote, votable: @link2, up: 1)
 
-      expect(Link.order_by(:rank).to_a).to eq [@link2, @link3, @link1]
+      expect(Link.order_by(:rank).to_a).to eql [@link2, @link3, @link1]
     end
 
     it "sorted by popularity(comments count)" do
       create(:comment, link: @link1)
       2.times { create(:comment, link: @link2) }
 
-      expect(Link.order_by(:hot).to_a).to eq [@link2, @link1, @link3]
+      expect(Link.order_by(:hot).to_a).to eql [@link2, @link1, @link3]
     end
   end
 
@@ -71,7 +71,7 @@ RSpec.describe Link, :type => :model do
     it "returns comments count" do
       3.times { create(:comment, link: @link) }
       @link.reload
-      expect(@link.comments_count).to eq 3
+      expect(@link.comments_count).to eql 3
     end
   end
 end

@@ -27,7 +27,7 @@ feature 'User' do
       scenario 'submit a new link' do
         visit new_link_path
         login_as(@user)
-        expect(current_path).to eq new_link_path
+        expect(current_path).to eql new_link_path
         expect(page).to have_content 'New link'
         fill_in 'link[url]', with: 'http://foobar.com/foo.jpg'
         fill_in 'link[title]', with: 'Foo Bar'
@@ -40,7 +40,7 @@ feature 'User' do
         link = create(:link, user: @user)
         visit edit_link_path(link)
         login_as(@user)
-        expect(current_path).to eq edit_link_path(link)
+        expect(current_path).to eql edit_link_path(link)
         expect(page).to have_content 'Edit link'
         fill_in 'link[title]', with: 'Another Title'
         click_button 'Update'

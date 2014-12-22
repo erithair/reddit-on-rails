@@ -9,7 +9,7 @@ RSpec.describe LinksController, :type => :controller do
 
       it "assigns a Link to @link" do
         get :show, id: @link
-        expect(assigns(:link)).to eq @link
+        expect(assigns(:link)).to eql @link
         expect(response).to render_template :show
       end
 
@@ -26,18 +26,18 @@ RSpec.describe LinksController, :type => :controller do
 
         it "sort by created time desc when not specify the order" do
           get :show, id: @link
-          expect(assigns(:comments).to_a).to eq [@comment2, @comment1]
+          expect(assigns(:comments).to_a).to eql [@comment2, @comment1]
         end
 
         it "sort by created time desc when specify order: latest" do
           get :show, id: @link, order: 'latest'
-          expect(assigns(:comments).to_a).to eq [@comment2, @comment1]
+          expect(assigns(:comments).to_a).to eql [@comment2, @comment1]
         end
 
         it "sort by votes when specify order: rank" do
           create(:comment_vote, votable: @comment1, up: 1)
           get :show, id: @link, order: 'rank'
-          expect(assigns(:comments).to_a).to eq [@comment1, @comment2]
+          expect(assigns(:comments).to_a).to eql [@comment1, @comment2]
         end
       end
     end
@@ -59,19 +59,19 @@ RSpec.describe LinksController, :type => :controller do
 
         it "sorted by created time desc when specify order: latest" do
           get :index, order: 'latest'
-          expect(assigns(:links).first).to eq @link2
+          expect(assigns(:links).first).to eql @link2
         end
 
         it "sorted by votes when specify order: rank" do
           create(:link_vote, votable: @link1, up: 1)
           get :index, order: 'rank'
-          expect(assigns(:links).first).to eq @link1
+          expect(assigns(:links).first).to eql @link1
         end
 
         it "sorted by comments count when specify order: hot" do
           create(:comment, link: @link1)
           get :index, order: 'hot'
-          expect(assigns(:links).first).to eq @link1
+          expect(assigns(:links).first).to eql @link1
         end
       end
     end
@@ -99,7 +99,7 @@ RSpec.describe LinksController, :type => :controller do
       it "assigns a Link to @link" do
         link = create(:link, user: @user)
         get :edit, id: link
-        expect(assigns(:link)).to eq link
+        expect(assigns(:link)).to eql link
         expect(response).to render_template :edit
       end
 
@@ -121,7 +121,7 @@ RSpec.describe LinksController, :type => :controller do
             title: 'New Title',
             user: @link.user)
           @link.reload
-          expect(@link.title).to eq 'New Title'
+          expect(@link.title).to eql 'New Title'
           expect(response).to redirect_to links_path
         end
       end
@@ -133,7 +133,7 @@ RSpec.describe LinksController, :type => :controller do
             title: '',
             user: @link.user)
           @link.reload
-          expect(@link.title).to eq 'Old Title'
+          expect(@link.title).to eql 'Old Title'
           expect(response).to render_template :edit
         end
       end
@@ -172,7 +172,7 @@ RSpec.describe LinksController, :type => :controller do
           post :vote, id: @link, up: '1'
         }.to change(Vote, :count).by(1)
         @link.reload
-        expect(@link.rank).to eq 1
+        expect(@link.rank).to eql 1
         expect(response).to redirect_to links_path
       end
 

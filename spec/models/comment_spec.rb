@@ -42,14 +42,14 @@ RSpec.describe Comment, :type => :model do
     end
 
     it "sorted by created time DESC" do
-      expect(Comment.order_by(:latest).to_a).to eq [@comment3, @comment2, @comment1]
+      expect(Comment.order_by(:latest).to_a).to eql [@comment3, @comment2, @comment1]
     end
 
     it "sorted by rank(votes count)" do
       create(:comment_vote, votable: @comment1, up: -1)
       create(:comment_vote, votable: @comment2, up: 1)
 
-      expect(Comment.order_by(:rank).to_a).to eq [@comment2, @comment3, @comment1]
+      expect(Comment.order_by(:rank).to_a).to eql [@comment2, @comment3, @comment1]
     end
   end
 end

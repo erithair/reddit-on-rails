@@ -100,13 +100,13 @@ RSpec.describe User, :type => :model do
       it "returns links count" do
         3.times { create(:link, user: @user) }
         @user.reload
-        expect(@user.links_count).to eq 3
+        expect(@user.links_count).to eql 3
       end
 
       it "returns comments count" do
         3.times { create(:comment, user: @user) }
         @user.reload
-        expect(@user.comments_count).to eq 3
+        expect(@user.comments_count).to eql 3
       end
     end
 
@@ -117,11 +117,11 @@ RSpec.describe User, :type => :model do
         end
 
         it "returns :up if user made an up-vote" do
-          expect(@user.vote_kind(@up_vote_obj)).to eq 1
+          expect(@user.vote_kind(@up_vote_obj)).to eql 1
         end
 
         it "returns :down if user made a down-vote" do
-          expect(@user.vote_kind(@down_vote_obj)).to eq -1
+          expect(@user.vote_kind(@down_vote_obj)).to eql -1
         end
       end
 

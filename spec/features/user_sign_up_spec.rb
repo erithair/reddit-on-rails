@@ -15,7 +15,7 @@ feature 'User' do
       fill_in 'user[password_confirmation]', with: user.password_confirmation
       click_button 'Create'
     }.to change(User, :count).by(1)
-    expect(ActionMailer::Base.deliveries.size).to eq 1
+    expect(ActionMailer::Base.deliveries.size).to eql 1
     user = User.find_by(email: user.email)
     expect(user.activated?).to be_falsy
   end

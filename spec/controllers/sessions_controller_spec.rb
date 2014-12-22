@@ -46,7 +46,7 @@ RSpec.describe SessionsController, :type => :controller do
                                  remember_me: '0'}
         @user.reload
         expect(@user.remember_digest).to be_nil
-        expect(session[:user_id]).to eq @user.id
+        expect(session[:user_id]).to eql @user.id
         expect(cookies['remember_token']).to be_nil
         expect(response).to redirect_to user_path(@user)
       end
@@ -57,7 +57,7 @@ RSpec.describe SessionsController, :type => :controller do
                                  remember_me: '1'}
         @user.reload
         expect(@user.remember_digest).to_not be_nil
-        expect(session[:user_id]).to eq @user.id
+        expect(session[:user_id]).to eql @user.id
         expect(cookies['remember_token']).to_not be_nil
         expect(response).to redirect_to user_path(@user)
       end
