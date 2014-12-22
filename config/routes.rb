@@ -19,17 +19,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :account_activations, only: :edit
+  resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :links do
     resources :comments, only: [:create, :index, :destroy] do
-      member do
-        post 'vote'
-      end
+      resources :votes, only: [:create], module: :comments
     end
 
-    member do
-      post 'vote'
-    end
+    resources :votes, only: [:create], module: :links
   end
 end

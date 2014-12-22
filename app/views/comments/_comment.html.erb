@@ -3,7 +3,7 @@
     <div class="col rank-field">
       <ul>
         <li>
-          <%= link_to vote_link_comment_path(@link || comment.link, comment, up: '1'),
+          <%= link_to link_comment_votes_path(@link || comment.link, comment, up: '1'),
                       id: "vote-up-comment-#{comment.id}",
                       class: vote_link_class(comment: comment, up: 1),
                       method: :post,
@@ -13,7 +13,7 @@
         </li>
         <li><%= comment.rank %></li>
         <li>
-          <%= link_to vote_link_comment_path(@link || comment.link, comment, up: '-1'),
+          <%= link_to link_comment_votes_path(@link || comment.link, comment, up: '-1'),
                       id: "vote-down-comment-#{comment.id}",
                       class: vote_link_class(comment: comment, up: -1),
                       method: :post,
